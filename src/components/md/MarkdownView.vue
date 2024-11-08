@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { createApp, onMounted, ref, watch } from 'vue';
 
+import MarkdownHeader from './MarkdownHeader.vue';
+import MarkdownImage from './MarkdownImage.vue';
+
 const props = defineProps<{
     content: string
 }>()
@@ -9,7 +12,11 @@ const target = ref<HTMLDivElement>();
 
 const render = (html: string) => {
     const ren = createApp({
-        template: html
+        template: html,
+        components: {
+            MarkdownHeader,
+            MarkdownImage
+        }
     })
 
     if (target.value) ren.mount(target.value)
@@ -28,19 +35,19 @@ onMounted(() => render(props.content))
     @apply flex flex-col gap-3 max-w-full;
 
     h2 {
-        @apply text-4xl font-bold;
+        @apply text-3xl font-bold;
     }
 
     h3 {
-        @apply text-3xl font-medium;
+        @apply text-2xl font-medium;
     }
 
     h4 {
-        @apply text-2xl;
+        @apply text-xl;
     }
 
-    h5 {
-        @apply text-xl;
+    a {
+        @apply text-dark-accent
     }
 
     p {
