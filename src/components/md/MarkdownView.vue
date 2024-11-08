@@ -2,6 +2,8 @@
 import { createApp, onMounted, ref, watch } from 'vue';
 import router from '@/router';
 
+import MarkdownBlockquote from './MarkdownBlockquote.vue';
+import MarkdownCodeBlock from './MarkdownCodeBlock.vue';
 import MarkdownFootnote from './MarkdownFootnote.vue';
 import MarkdownHeader from './MarkdownHeader.vue';
 import MarkdownImage from './MarkdownImage.vue';
@@ -16,6 +18,8 @@ const render = (html: string) => {
     const ren = createApp({
         template: html,
         components: {
+            MarkdownBlockquote,
+            MarkdownCodeBlock,
             MarkdownFootnote,
             MarkdownHeader,
             MarkdownImage
@@ -55,11 +59,12 @@ onMounted(() => render(props.content))
         @apply text-dark-accent hover:underline
     }
 
-    p {
+    > p {
         @apply text-lg;
     }
 
-    ul, ol {
+    ul,
+    ol {
         @apply list-inside list-disc;
 
         li {

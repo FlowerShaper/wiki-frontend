@@ -56,7 +56,7 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
             </ol>
         </div>
         <div class="w-1 bg-dark-2 rounded mx-6"></div>
-        <div class="flex flex-col flex-1 gap-4">
+        <div class="flex flex-col flex-1 gap-4 max-w-full min-w-0">
             <div>
                 <h1 class="text-4xl text-dark-accent">{{ react.article?.meta.title }}</h1>
                 <p class="opacity-75">written by {{ react.article?.meta.author }}</p>

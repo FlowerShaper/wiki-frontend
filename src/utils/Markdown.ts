@@ -5,6 +5,7 @@ import { marked, type RendererObject } from "marked";
 
 export default class Markdown {
     static FootnoteRegex = /\[\^(\d{1,2})\]/g;
+    static BlockquoteRegex = /\{: \.(\w+) \}/g;
 
     static Parse(md: string): ParsedMarkdown {
         const data = new ParsedMarkdown(md);
@@ -49,6 +50,25 @@ export default class Markdown {
                 }
 
                 return false
+            },
+            code: (code) => {
+                const text = code.text
+                const lines = text.split('\n')
+                return `<MarkdownCodeBlock lang="${code.lang}"><span>${lines.join('</span><span>')}</span></MarkdownCodeBlock>`
+            },
+            blockquote: (block) => {
+                let content = block.text
+                let type = "tip"
+
+                const matches = [...content.matchAll(Markdown.BlockquoteRegex)]
+
+                if (matches.length > 0) {
+                    const match = matches[0]
+                    type = match[1]
+                    content = content.replace(match[0], '').trim()
+                }
+
+                return `<MarkdownBlockquote type="${type}">${content}</MarkdownBlockquote>`
             },
             image: (image) =>
                 `<MarkdownImage path="${image.href}" alt="${image.text}" />`,

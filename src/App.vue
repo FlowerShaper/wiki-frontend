@@ -8,7 +8,7 @@ import NavBar from './components/nav/NavBar.vue';
     <div class="overlap-grid w-full 2xl:w-page mx-auto px-8 pt-24 pb-16">
         <RouterView v-slot="{ Component, route }">
             <Transition name="page-fade">
-                <div :key="route.path">
+                <div class="w-full max-w-full" :key="route.path">
                     <Suspense>
                         <component :is="Component" />
                     </Suspense>
