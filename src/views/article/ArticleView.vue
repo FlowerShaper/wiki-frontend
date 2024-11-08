@@ -15,25 +15,34 @@ const split = route.path.split('/')
 const path = split.slice(1).join('/')
 
 const react = reactive<{
+    loading: boolean,
+    error?: string,
     article?: WikiArticle
     parsed?: ParsedMarkdown
     content?: string
-}>({});
+}>({
+    loading: true
+});
 
 API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
-    if (!res.IsSuccess() || !res.data) {
-        console.log(res.message)
-        return
-    }
+    if (!res.IsSuccess() || !res.data)
+        throw new Error(res.message)
 
     react.article = res.data;
     react.parsed = Markdown.Parse(res.data.content)
     react.content = Markdown.Render(res.data.content)
-})
+}).catch(ex => {
+    react.error = ex.message
+}).finally(() => react.loading = false)
 </script>
 
 <template>
-    <div class="flex flex-row w-full">
+    <div class="text-center" v-if="react.loading">Loading...</div>
+    <div class="text-center flex flex-col gap-2" v-else-if="react.error">
+        <p>{{ react.error }}</p>
+        <RouterLink class="text-dark-accent hover:underline" to="/">Back Home</RouterLink>
+    </div>
+    <div class="flex flex-row w-full" v-else>
         <div class="w-48 flex flex-col gap-2">
             <h3 class="text-dark-accent">Contents</h3>
             <ol class="list-decimal list-inside">

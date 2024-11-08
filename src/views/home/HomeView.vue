@@ -2,7 +2,5 @@
 </script>
 
 <template>
-    <div>
-        <p>meow</p>
-    </div>
+    meow
 </template>
