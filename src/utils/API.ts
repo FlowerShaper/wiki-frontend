@@ -27,7 +27,7 @@ export default class API {
     }
 
     static OpenLogin() {
-        const url = `https://discord.com/oauth2/authorize?response_type=token&client_id=1169155506988929024&scope=identify&redirect_uri=${window.location.protocol}//${window.location.host}/oauth/completion`;
+        const url = `https://discord.com/oauth2/authorize?response_type=token&client_id=1290974200126771263&scope=identify&redirect_uri=${window.location.protocol}//${window.location.host}/oauth/complete`;
         const params =
             "width=500,height=600,scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no";
 
@@ -58,10 +58,11 @@ export default class API {
         function listener(ev: MessageEvent<any>) {
             clear();
             popup?.close();
+            console.log(ev.data)
 
             if (ev.data.error) throw new Error(ev.data.error);
 
-            const token = ev.data.token;
+            const token = ev.data.access_token;
             Cookies.Set("token", token);
             API.RefreshInfo();
         }
@@ -79,8 +80,13 @@ export default class API {
     }
 
     static async RefreshInfo() {
-        await API.PerformGet<WikiUser>("/user/@me")
+        await API.PerformGet<WikiUser>("/account")
             .then((res) => {
+                if (!res.IsSuccess()) {
+                    this.Logout()
+                    return
+                }
+
                 Cookies.Set("user", res.data);
                 state.user = res.data;
             })

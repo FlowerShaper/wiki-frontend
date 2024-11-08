@@ -33,7 +33,7 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
 </script>
 
 <template>
-    <div class="flex flex-row w-full p-16">
+    <div class="flex flex-row w-full px-16">
         <div class="w-48 flex flex-col gap-2">
             <h3 class="text-dark-accent">Contents</h3>
             <ol class="list-decimal list-inside">

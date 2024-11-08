@@ -9,6 +9,16 @@ const router = createRouter({
             component: () => import("@/views/home/HomeView.vue"),
         },
         {
+            path: "/oauth/complete",
+            name: "oauth-complete",
+            component: () => import('@/views/auth/AuthComplete.vue')
+        },
+        {
+            path: "/user/:id",
+            name: "user-profile",
+            component: () => import('@/views/user/UserView.vue')
+        },
+        {
             path: "/:pathMatch(.*)*",
             name: "article-view",
             component: () => import("@/views/article/ArticleView.vue"),
