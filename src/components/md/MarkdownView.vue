@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { createApp, onMounted, ref, watch } from 'vue';
+import router from '@/router';
 
 import MarkdownFootnote from './MarkdownFootnote.vue';
 import MarkdownHeader from './MarkdownHeader.vue';
@@ -20,6 +21,8 @@ const render = (html: string) => {
             MarkdownImage
         }
     })
+
+    ren.use(router)
 
     if (target.value) ren.mount(target.value)
 };

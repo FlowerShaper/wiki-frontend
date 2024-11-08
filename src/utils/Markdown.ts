@@ -43,6 +43,13 @@ export default class Markdown {
 
                 return false;
             },
+            link: (link) => {
+                if (link.href.startsWith('/')) {
+                    return `<RouterLink to="${link.href}">${link.text}</RouterLink>`
+                }
+
+                return false
+            },
             image: (image) =>
                 `<MarkdownImage path="${image.href}" alt="${image.text}" />`,
         };
