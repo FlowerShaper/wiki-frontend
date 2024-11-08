@@ -93,12 +93,12 @@ export default class Markdown {
                 const str = html.substring(ref.index, linkEnd + 4)
 
                 let anchor = str.replace(`${raw}: `, '')
-                anchor = `<li id="note-${num}" class="!list-decimal list-inside">${anchor}</li>`
+                anchor = `<li id="note-${num}" class="!list-decimal">${anchor}</li>`
 
                 if (first)
                     anchor += "</ol>"
                 else if (last)
-                    anchor = '<ol class="!pl-0">' + anchor
+                    anchor = '<ol>' + anchor
 
                 html = html.replace(str, anchor)
                 idx++

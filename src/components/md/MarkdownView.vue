@@ -57,10 +57,10 @@ onMounted(() => render(props.content))
     }
 
     ul, ol {
-        @apply pl-5;
+        @apply list-inside list-disc;
 
         li {
-            @apply text-lg list-disc;
+            @apply text-lg;
         }
     }
 }
