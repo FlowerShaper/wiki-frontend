@@ -1,3 +1,5 @@
 <template>
-    hi hello :3c
+    <div>
+        hi hello :3c
+    </div>
 </template>

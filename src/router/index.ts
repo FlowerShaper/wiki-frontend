@@ -24,6 +24,9 @@ const router = createRouter({
             component: () => import("@/views/article/ArticleView.vue"),
         },
     ],
+    scrollBehavior: (_, __, ___) => {
+        return { top: 0 }
+    }
 });
 
 export default router;
