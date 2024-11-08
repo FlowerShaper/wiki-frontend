@@ -1,4 +1,4 @@
-<script async setup lang="ts">
+<script setup lang="ts">
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -20,7 +20,7 @@ const react = reactive<{
     loading: true
 })
 
-await API.PerformGet<WikiUser>(`/users/${id}`).then(res => {
+API.PerformGet<WikiUser>(`/users/${id}`).then(res => {
     if (!res.IsSuccess() || !res.data)
         throw new Error(res.message)
 

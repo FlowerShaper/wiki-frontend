@@ -9,9 +9,7 @@ import NavBar from './components/nav/NavBar.vue';
         <RouterView v-slot="{ Component, route }">
             <Transition name="page-fade">
                 <div class="w-full max-w-full" :key="route.path">
-                    <Suspense>
-                        <component :is="Component" />
-                    </Suspense>
+                    <component :is="Component" />
                 </div>
             </Transition>
         </RouterView>
