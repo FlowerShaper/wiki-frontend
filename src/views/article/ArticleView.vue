@@ -5,6 +5,8 @@ import { useRoute } from 'vue-router';
 import type { WikiArticle } from '@/api/models/articles/WikiArticle';
 import type ParsedMarkdown from '@/models/markdown/ParsedMarkdown';
 
+import LoadingContainer from '@/components/status/LoadingContainer.vue';
+import ErrorContainer from '@/components/status/ErrorContainer.vue';
 import MarkdownView from '@/components/md/MarkdownView.vue';
 
 import API from '@/utils/API';
@@ -37,11 +39,8 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
 </script>
 
 <template>
-    <div class="text-center" v-if="react.loading">Loading...</div>
-    <div class="text-center flex flex-col gap-2" v-else-if="react.error">
-        <p>{{ react.error }}</p>
-        <RouterLink class="text-dark-accent hover:underline" to="/">Back Home</RouterLink>
-    </div>
+    <LoadingContainer v-if="react.loading" />
+    <ErrorContainer :text="react.error" v-else-if="react.error"/>
     <div class="flex flex-row w-full" v-else>
         <div class="w-48 flex flex-col gap-2">
             <h3 class="text-dark-accent">Contents</h3>

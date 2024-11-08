@@ -80,7 +80,7 @@ export default class API {
     }
 
     static async RefreshInfo() {
-        await API.PerformGet<WikiUser>("/account")
+        await API.PerformGet<WikiUser>("/users/@me")
             .then((res) => {
                 if (!res.IsSuccess()) {
                     this.Logout()
