@@ -53,6 +53,25 @@ export default class Markdown {
         // footnote stuff
         const matches = [...html.matchAll(Markdown.FootnoteRegex)];
 
+        /* IMPORTANT THING:
+        for this to work properly all footnotes have to be in one paragraph
+
+        PROPER WAY:
+        # References
+        [^1]: [text](url)
+        [^2]: [text](url)
+        [^3]: [text](url)
+
+
+        NOT LIKE THIS:
+        # References
+        [^1]: [text](url)
+
+        [^2]: [text](url)
+
+        [^3]: [text](url)
+        */
+
         if (matches) {
             const one = matches.filter((m) => m[1] == "1");
             const last = one[one.length - 1];
