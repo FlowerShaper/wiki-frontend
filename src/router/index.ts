@@ -24,7 +24,10 @@ const router = createRouter({
             component: () => import("@/views/article/ArticleView.vue"),
         },
     ],
-    scrollBehavior: (_, __, ___) => {
+    scrollBehavior: (to, from, ___) => {
+        if (to.path == from.path)
+            return { el: to.hash }
+
         return { top: 0 }
     }
 });
