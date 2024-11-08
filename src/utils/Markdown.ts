@@ -38,8 +38,8 @@ export default class Markdown {
     static Render(md: string): string {
         const config: RendererObject = {
             heading: (head) => {
-                if (head.depth == 2)
-                    return `<MarkdownHeader text="${head.text}" />`;
+                if (head.depth == 2 || head.depth == 3)
+                    return `<MarkdownHeader text="${head.text}" :level="${head.depth}" />`;
 
                 return false;
             },
