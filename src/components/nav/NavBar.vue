@@ -15,8 +15,8 @@ import { state } from '@/utils/State';
 
                 <div class="w-1 h-6 bg-dark-3 rounded mx-2"></div>
                 
-                <RouterLink :to="`/user/${state.user.id}`" class="hover:underline" v-if="state.user">{{ state.user.name }}</RouterLink>
-                <p class="hover:underline" @click="API.OpenLogin" v-else>Log In</p>
+                <RouterLink :to="`/user/${state.user.id}`" @click.middle="API.Logout" class="hover:underline cursor-pointer" v-if="state.user">{{ state.user.name }}</RouterLink>
+                <p class="hover:underline cursor-pointer" @click="API.OpenLogin" v-else>Log In</p>
             </div>
         </div>
     </nav>
