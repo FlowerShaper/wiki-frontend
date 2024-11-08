@@ -9,7 +9,6 @@ import MarkdownView from '@/components/md/MarkdownView.vue';
 
 import API from '@/utils/API';
 import Markdown from '@/utils/Markdown';
-import type ParsedSection from '@/models/markdown/ParsedSection';
 
 const route = useRoute();
 const split = route.path.split('/')

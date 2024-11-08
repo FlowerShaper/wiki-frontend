@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createApp, onMounted, ref, watch } from 'vue';
 
+import MarkdownFootnote from './MarkdownFootnote.vue';
 import MarkdownHeader from './MarkdownHeader.vue';
 import MarkdownImage from './MarkdownImage.vue';
 
@@ -14,6 +15,7 @@ const render = (html: string) => {
     const ren = createApp({
         template: html,
         components: {
+            MarkdownFootnote,
             MarkdownHeader,
             MarkdownImage
         }
@@ -47,7 +49,7 @@ onMounted(() => render(props.content))
     }
 
     a {
-        @apply text-dark-accent
+        @apply text-dark-accent hover:underline
     }
 
     p {
