@@ -73,6 +73,13 @@ export default class API {
         }
     }
 
+    static PathToSlug(path: string): string {
+        if (path.startsWith('/'))
+            path = path.substring(1)
+
+        return path.replace('/', '-').toLowerCase()
+    }
+
     static Logout() {
         Cookies.Remove("user");
         Cookies.Remove("token");
