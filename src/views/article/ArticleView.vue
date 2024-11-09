@@ -40,7 +40,7 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
 
 <template>
     <LoadingContainer v-if="react.loading" />
-    <ErrorContainer :text="react.error" v-else-if="react.error"/>
+    <ErrorContainer :text="react.error" v-else-if="react.error" />
     <div class="flex flex-row w-full" v-else>
         <div class="w-48 flex flex-col gap-2">
             <h3 class="text-dark-accent">Contents</h3>
