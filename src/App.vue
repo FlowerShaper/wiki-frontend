@@ -2,6 +2,8 @@
 import { RouterView } from 'vue-router'
 
 import NavBar from './components/nav/NavBar.vue';
+
+import ProfileOverlay from './overlays/profile/ProfileOverlay.vue';
 </script>
 
 <template>
@@ -13,6 +15,10 @@ import NavBar from './components/nav/NavBar.vue';
                 </div>
             </Transition>
         </RouterView>
+    </div>
+
+    <div class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-20">
+        <ProfileOverlay />
     </div>
 
     <NavBar />

@@ -3,6 +3,7 @@ export default {
     content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     theme: {
         colors: {
+            black: "#000",
             bq: {
                 danger: "#ff5555",
                 tip: "#5555ff",
@@ -21,6 +22,9 @@ export default {
         extend: {
             width: {
                 page: 1536,
+            },
+            fontFamily: {
+                fa: "fa",
             },
         },
     },

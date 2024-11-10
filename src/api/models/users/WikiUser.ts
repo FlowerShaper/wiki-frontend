@@ -3,6 +3,7 @@ export default class WikiUser {
     public name: string = ""
     public nick: string = ""
     public avatar: string = ""
+    public banner: string = ""
     public color: string = ""
     public staff: boolean = false
     public join: number = 0
