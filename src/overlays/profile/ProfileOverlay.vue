@@ -3,7 +3,7 @@ import { reactive } from "vue";
 import { RouterLink } from "vue-router";
 
 import API from '@/utils/API';
-import { state } from '@/utils/State';
+import { state, UpdateSetting } from '@/utils/State';
 
 import Placeholder from '@/assets/images/placeholder.png'
 
@@ -17,6 +17,10 @@ function Close() {
     react.theme = false
     state.overlays.profile = false
 }
+
+function ChangeTheme(theme: string) {
+    UpdateSetting(s => s.theme = theme)
+}
 </script>
 
 <template>
@@ -24,12 +28,12 @@ function Close() {
         <div v-if="state.overlays.profile" @click="Close"
             class="fixed size-full top-0 left-0 pointer-events-auto bg-black bg-opacity-25">
             <div class="w-full 2xl:w-page mx-auto">
-                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-dark-2 bg-opacity-80 backdrop-blur-md p-2 rounded-xl gap-2 origin-top-right">
+                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 bg-opacity-80 backdrop-blur-md p-2 rounded-xl gap-2 origin-top-right">
                     <template v-if="!react.theme">
                         <div class="flex flex-col">
                             <div class="overlap-grid w-full h-20 rounded overflow-hidden">
                                 <img class="size-full object-cover" :src="state.user?.banner || Placeholder" alt="">
-                                <div class="bg-dark-1 opacity-50"></div>
+                                <div class="bg-1 opacity-50"></div>
                             </div>
                             <div class="z-10 flex flex-col items-center -mt-12">
                                 <img class="size-16 rounded-lg mb-1" :src="state.user?.avatar || Placeholder" alt="">
@@ -38,7 +42,7 @@ function Close() {
                             </div>
                         </div>
                         <div class="w-full h-1 px-2">
-                            <div class="size-full bg-dark-3 opacity-60"></div>
+                            <div class="size-full bg-3 opacity-60"></div>
                         </div>
                         <div class="flex flex-col">
                             <RouterLink :to="`/user/${state.user.id}`" @click="Close" v-if="state.user" ><ProfileOverlayButton :icon="'\uf007'" text="my profile"/></RouterLink>
@@ -50,7 +54,8 @@ function Close() {
                     </template>
                     <div v-else>
                         <ProfileOverlayButton @click="react.theme = false" :icon="'\uf060'" text="back" />
-                        <ProfileOverlayButton :icon="'\ue206'" text="default" />
+                        <ProfileOverlayButton @click="ChangeTheme('dark')" :icon="'\ue206'" text="dark" />
+                        <ProfileOverlayButton @click="ChangeTheme('light')" :icon="'\ue206'" text="light" />
                     </div>
                 </div>
             </div>

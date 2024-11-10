@@ -8,7 +8,7 @@ defineProps<{
 <template>
     <div class="relative overflow-x-auto">
         <p class="absolute top-0 right-0">{{ lang }}</p>
-        <pre class="md-cb relative overflow-x-scroll bg-dark-2 rounded-xl p-3"><code class="md-cb w-fit min-w-full flex flex-col">
+        <pre class="md-cb relative overflow-x-scroll bg-2 rounded-xl p-3"><code class="md-cb w-fit min-w-full flex flex-col">
             <slot></slot>
         </code></pre>
     </div>
