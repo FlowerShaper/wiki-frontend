@@ -28,7 +28,7 @@ function ChangeTheme(theme: string) {
         <div v-if="state.overlays.profile" @click="Close"
             class="fixed size-full top-0 left-0 pointer-events-auto bg-black bg-opacity-25">
             <div class="w-full 2xl:w-page mx-auto">
-                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 bg-opacity-80 backdrop-blur-md p-2 rounded-xl gap-2 origin-top-right">
+                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 p-2 rounded-xl gap-2 origin-top-right">
                     <template v-if="!react.theme">
                         <div class="flex flex-col">
                             <div class="overlap-grid w-full h-20 rounded overflow-hidden">
@@ -42,7 +42,7 @@ function ChangeTheme(theme: string) {
                             </div>
                         </div>
                         <div class="w-full h-1 px-2">
-                            <div class="size-full bg-3 opacity-60"></div>
+                            <div class="size-full bg-3"></div>
                         </div>
                         <div class="flex flex-col">
                             <RouterLink :to="`/user/${state.user.id}`" @click="Close" v-if="state.user" ><ProfileOverlayButton :icon="'\uf007'" text="my profile"/></RouterLink>
