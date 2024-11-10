@@ -9,6 +9,20 @@ import Placeholder from '@/assets/images/placeholder.png'
 
 import ProfileOverlayButton from './ProfileOverlayButton.vue';
 
+const themes = [{
+    id: 'dark',
+    icon: '\uf186'
+}, {
+    id: 'light',
+    icon: '\ue28f'
+}, {
+    id: 'alpha',
+    icon: '\uf186'
+}, {
+    id: 'catppuccin',
+    icon: '\uf6be'
+}]
+
 const react = reactive<{
     theme?: boolean
 }>({})
@@ -28,7 +42,8 @@ function ChangeTheme(theme: string) {
         <div v-if="state.overlays.profile" @click="Close"
             class="fixed size-full top-0 left-0 pointer-events-auto bg-black bg-opacity-25">
             <div class="w-full 2xl:w-page mx-auto">
-                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 p-2 rounded-xl gap-2 origin-top-right">
+                <div @click="$event.stopPropagation()"
+                    class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 p-2 rounded-xl gap-2 origin-top-right">
                     <template v-if="!react.theme">
                         <div class="flex flex-col">
                             <div class="overlap-grid w-full h-20 rounded overflow-hidden">
@@ -45,17 +60,22 @@ function ChangeTheme(theme: string) {
                             <div class="size-full bg-3"></div>
                         </div>
                         <div class="flex flex-col">
-                            <RouterLink :to="`/user/${state.user.id}`" @click="Close" v-if="state.user" ><ProfileOverlayButton :icon="'\uf007'" text="my profile"/></RouterLink>
+                            <RouterLink :to="`/user/${state.user.id}`" @click="Close" v-if="state.user">
+                                <ProfileOverlayButton :icon="'\uf007'" text="my profile" />
+                            </RouterLink>
                             <ProfileOverlayButton @click="API.OpenLogin" :icon="'\uf2f6'" text="log in" v-else />
                             <ProfileOverlayButton @click="react.theme = true" :icon="'\ue206'" text="theme" />
-                            <RouterLink to="/settings" @click="Close"><ProfileOverlayButton :icon="'\uf013'" text="settings" /></RouterLink>
-                            <ProfileOverlayButton @click="API.Logout" :icon="'\uf2f5'" text="sign out" v-if="state.user" />
+                            <RouterLink to="/settings" @click="Close">
+                                <ProfileOverlayButton :icon="'\uf013'" text="settings" />
+                            </RouterLink>
+                            <ProfileOverlayButton @click="API.Logout" :icon="'\uf2f5'" text="sign out"
+                                v-if="state.user" />
                         </div>
                     </template>
                     <div v-else>
                         <ProfileOverlayButton @click="react.theme = false" :icon="'\uf060'" text="back" />
-                        <ProfileOverlayButton @click="ChangeTheme('dark')" :icon="'\uf186'" text="dark" />
-                        <ProfileOverlayButton @click="ChangeTheme('light')" :icon="'\ue28f'" text="light" />
+                        <ProfileOverlayButton @click="ChangeTheme(t.id)" :icon="t.icon" :text="t.id"
+                            v-for="t in themes" />
                     </div>
                 </div>
             </div>

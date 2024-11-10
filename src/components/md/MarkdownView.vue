@@ -56,7 +56,7 @@ onMounted(() => render(props.content))
     }
 
     a {
-        @apply text-accent hover:underline
+        @apply text-primary hover:underline
     }
 
     > p {

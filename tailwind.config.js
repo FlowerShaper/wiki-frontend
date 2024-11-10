@@ -36,7 +36,8 @@ export default {
                 3: "hsl(243, 26%, 26%)",
                 4: "hsl(243, 26%, 31%)",
                 text: "#e0e0ed",
-                accent: "#a3a1d8",
+                primary: "#a3a1d8",
+                secondary: "#BEA1D8",
             },
             light: {
                 1: "hsl(243, 10%, 85%)",
@@ -44,7 +45,26 @@ export default {
                 3: "hsl(243, 10%, 75%)",
                 4: "hsl(243, 10%, 70%)",
                 text: "hsl(243, 26%, 16%)",
-                accent: "#a3a1d8",
+                primary: "#a3a1d8",
+                secondary: "#BEA1D8",
+            },
+            alpha: {
+                1: "#331D2D",
+                2: "#45283D",
+                3: "#58304D",
+                4: "#56304C",
+                text: "#ffffff",
+                primary: "#F876D3",
+                secondary: '#EF656E'
+            },
+            catppuccin: {
+                1: "#303446",
+                2: "#414559",
+                3: "#51576d",
+                4: "#626880",
+                text: "#c6d0f5",
+                primary: "#8caaee",
+                secondary: '#babbf1'
             },
         }),
     ],

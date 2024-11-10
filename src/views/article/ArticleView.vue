@@ -46,7 +46,7 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
     <div class="flex flex-col gap-9" v-else>
         <div class="flex flex-row w-full">
             <div class="w-48 flex flex-col gap-2">
-                <h3 class="text-accent">Contents</h3>
+                <h3 class="text-primary">Contents</h3>
                 <ol class="list-decimal list-inside">
                     <li class="text-lg" v-for="sec in react.parsed?.sections">
                         <a class="hover:font-semibold" :href="`#${sec.id}`">{{ sec.title }}</a>
@@ -61,7 +61,7 @@ API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
             <div class="w-1 bg-2 rounded mx-6"></div>
             <div class="flex flex-col flex-1 gap-4 max-w-full min-w-0">
                 <div>
-                    <h1 class="text-4xl text-accent">{{ react.article?.meta.title }}</h1>
+                    <h1 class="text-4xl text-primary">{{ react.article?.meta.title }}</h1>
                     <p class="opacity-75">written by {{ react.article?.meta.author }}</p>
                 </div>
                 <MarkdownView v-if="react.content" :content="react.content" />
