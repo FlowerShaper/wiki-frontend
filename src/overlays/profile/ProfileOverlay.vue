@@ -54,8 +54,8 @@ function ChangeTheme(theme: string) {
                     </template>
                     <div v-else>
                         <ProfileOverlayButton @click="react.theme = false" :icon="'\uf060'" text="back" />
-                        <ProfileOverlayButton @click="ChangeTheme('dark')" :icon="'\ue206'" text="dark" />
-                        <ProfileOverlayButton @click="ChangeTheme('light')" :icon="'\ue206'" text="light" />
+                        <ProfileOverlayButton @click="ChangeTheme('dark')" :icon="'\uf186'" text="dark" />
+                        <ProfileOverlayButton @click="ChangeTheme('light')" :icon="'\ue28f'" text="light" />
                     </div>
                 </div>
             </div>
