@@ -23,17 +23,39 @@ const themes = [{
     icon: '\uf6be'
 }]
 
+const languages = [{
+    id: 'en',
+    name: 'english'
+}, {
+    id: 'jp',
+    name: 'japanese'
+}]
+
 const react = reactive<{
-    theme?: boolean
+    menu?: SubMenu
 }>({})
 
+function CloseSubMenu() {
+    react.menu = SubMenu.Nothing
+}
+
 function Close() {
-    react.theme = false
+    CloseSubMenu()
     state.overlays.profile = false
 }
 
 function ChangeTheme(theme: string) {
     UpdateSetting(s => s.theme = theme)
+}
+
+function ChangeLanguage(lang: string) {
+    UpdateSetting(s => s.language = lang)
+}
+
+enum SubMenu {
+    Nothing,
+    Language,
+    Theme
 }
 </script>
 
@@ -44,7 +66,7 @@ function ChangeTheme(theme: string) {
             <div class="w-full 2xl:w-page mx-auto">
                 <div @click="$event.stopPropagation()"
                     class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 p-2 rounded-xl gap-2 origin-top-right">
-                    <template v-if="!react.theme">
+                    <template v-if="!react.menu">
                         <div class="flex flex-col">
                             <div class="overlap-grid w-full h-20 rounded overflow-hidden">
                                 <img class="size-full object-cover" :src="state.user?.banner || Placeholder" alt="">
@@ -64,7 +86,9 @@ function ChangeTheme(theme: string) {
                                 <ProfileOverlayButton :icon="'\uf007'" text="my profile" />
                             </RouterLink>
                             <ProfileOverlayButton @click="API.OpenLogin" :icon="'\uf2f6'" text="log in" v-else />
-                            <ProfileOverlayButton @click="react.theme = true" :icon="'\ue206'" text="theme" />
+                            <ProfileOverlayButton @click="react.menu = SubMenu.Language" :icon="'\uf57d'"
+                                text="language" />
+                            <ProfileOverlayButton @click="react.menu = SubMenu.Theme" :icon="'\ue206'" text="theme" />
                             <RouterLink to="/settings" @click="Close">
                                 <ProfileOverlayButton :icon="'\uf013'" text="settings" />
                             </RouterLink>
@@ -72,8 +96,13 @@ function ChangeTheme(theme: string) {
                                 v-if="state.user" />
                         </div>
                     </template>
-                    <div v-else>
-                        <ProfileOverlayButton @click="react.theme = false" :icon="'\uf060'" text="back" />
+                    <div v-else-if="react.menu == SubMenu.Language">
+                        <ProfileOverlayButton @click="CloseSubMenu" :icon="'\uf060'" text="back" />
+                        <ProfileOverlayButton @click="ChangeLanguage(l.id)" :icon="'\uf57d'" :text="l.id"
+                            v-for="l in languages" />
+                    </div>
+                    <div v-else-if="react.menu == SubMenu.Theme">
+                        <ProfileOverlayButton @click="CloseSubMenu" :icon="'\uf060'" text="back" />
                         <ProfileOverlayButton @click="ChangeTheme(t.id)" :icon="t.icon" :text="t.id"
                             v-for="t in themes" />
                     </div>

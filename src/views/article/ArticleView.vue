@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, reactive } from 'vue';
+import { nextTick, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import type { WikiArticle } from '@/api/models/articles/WikiArticle';
@@ -13,6 +13,7 @@ import ArticleComments from './comments/ArticleComments.vue';
 
 import API from '@/utils/API';
 import Markdown from '@/utils/Markdown';
+import { settings } from '@/utils/State';
 
 const route = useRoute();
 const split = route.path.split('/')
@@ -28,16 +29,23 @@ const react = reactive<{
     loading: true
 });
 
-API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(async res => {
-    if (!res.IsSuccess() || !res.data)
-        throw new Error(res.message)
+watch(() => settings.language, FetchArticle)
+FetchArticle()
 
-    react.article = res.data;
-    react.parsed = Markdown.Parse(res.data.content)
-    react.content = Markdown.Render(res.data.content)
-}).catch(ex => {
-    react.error = ex.message
-}).finally(() => react.loading = false)
+function FetchArticle() {
+    react.loading = true
+
+    API.PerformGet<WikiArticle>(`/articles?path=/${path}&lang=${settings.language}`).then(async res => {
+        if (!res.IsSuccess() || !res.data)
+            throw new Error(res.message)
+
+        react.article = res.data;
+        react.parsed = Markdown.Parse(res.data.content)
+        react.content = Markdown.Render(res.data.content)
+    }).catch(ex => {
+        react.error = ex.message
+    }).finally(() => react.loading = false)
+}
 </script>
 
 <template>

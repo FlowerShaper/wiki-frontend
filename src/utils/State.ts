@@ -5,6 +5,7 @@ import WikiUser from '@/api/models/users/WikiUser';
 
 const defaultSettings: Settings = {
     simpleFont: false,
+    language: 'en',
     theme: "dark"
 };
 
@@ -29,5 +30,6 @@ export function UpdateSetting(func: (setting: Settings) => void) {
 
 type Settings = {
     simpleFont: boolean,
-    theme: string
+    language: string,
+    theme: string,
 }
