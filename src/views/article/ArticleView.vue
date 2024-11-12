@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { nextTick, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
 import type { WikiArticle } from '@/api/models/articles/WikiArticle';
@@ -28,7 +28,7 @@ const react = reactive<{
     loading: true
 });
 
-API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(res => {
+API.PerformGet<WikiArticle>(`/articles?path=/${path}`).then(async res => {
     if (!res.IsSuccess() || !res.data)
         throw new Error(res.message)
 

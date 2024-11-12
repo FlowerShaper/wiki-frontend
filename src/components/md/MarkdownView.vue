@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { createApp, onMounted, ref, watch } from 'vue';
+import { createApp, onMounted, ref, watch, nextTick } from 'vue';
+import { useRoute } from 'vue-router';
+
 import router from '@/router';
 
 import MarkdownBlockquote from './MarkdownBlockquote.vue';
@@ -8,8 +10,11 @@ import MarkdownFootnote from './MarkdownFootnote.vue';
 import MarkdownHeader from './MarkdownHeader.vue';
 import MarkdownImage from './MarkdownImage.vue';
 
+const route = useRoute()
+
 const props = defineProps<{
-    content: string
+    content: string,
+    scroll?: boolean
 }>()
 
 const target = ref<HTMLDivElement>();
@@ -28,11 +33,21 @@ const render = (html: string) => {
 
     ren.use(router)
 
-    if (target.value) ren.mount(target.value)
+    if (target.value) {
+        ren.mount(target.value)
+        nextTick(MoveToHash)
+    }
 };
 
 watch(() => props.content, (content) => render(content), { immediate: true })
 onMounted(() => render(props.content))
+
+function MoveToHash() {
+    if (route.hash) {
+        const el = document.getElementById(route.hash.substring(1))
+        if (el) el.scrollIntoView({ block: 'start' })
+    }
+}
 </script>
 
 <template>
@@ -59,7 +74,7 @@ onMounted(() => render(props.content))
         @apply text-primary hover:underline
     }
 
-    > p {
+    >p {
         @apply text-lg;
     }
 
