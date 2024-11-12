@@ -8,9 +8,7 @@ export default class Cookies {
         if (typeof(value) !== "string")
             value = JSON.stringify(value)
 
-        const bwa = `${name}=${value}; expires=${date.toUTCString()}; domain=${this.Domain}; path=/`;
-        console.log(bwa)
-        document.cookie = bwa
+        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; domain=${this.Domain}; path=/`;
     }
 
     static Get(cname: string): any {
