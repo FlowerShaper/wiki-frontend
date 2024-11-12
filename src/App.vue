@@ -12,7 +12,7 @@ import { settings } from './utils/State';
 <template>
     <SettingsHandler />
     <div :class="{ 'font-sans': settings.simpleFont }">
-        <div class="overlap-grid w-full 2xl:w-page mx-auto px-8 pt-24 pb-16">
+        <div class="overlap-grid w-full 2xl:w-page mx-auto min-h-screen px-8 pt-24 pb-16">
             <RouterView v-slot="{ Component, route }">
                 <Transition name="page-fade">
                     <div class="w-full max-w-full" :key="route.path">
