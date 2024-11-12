@@ -1,12 +1,16 @@
 export default class Cookies {
+    static Domain = "localhost"
+
     static Set(name: string, value: any) {
         const date = new Date();
-        date.setTime(date.getTime() + (2 * 265 * 24 * 60 * 60 * 1000));
+        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
 
         if (typeof(value) !== "string")
             value = JSON.stringify(value)
 
-        document.cookie = `${name}=${value}; Max-Age=${date.toUTCString()}; path=/`;
+        const bwa = `${name}=${value}; expires=${date.toUTCString()}; domain=${this.Domain}; path=/`;
+        console.log(bwa)
+        document.cookie = bwa
     }
 
     static Get(cname: string): any {

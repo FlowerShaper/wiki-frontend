@@ -8,6 +8,12 @@ import router from './router'
 import API from './utils/API'
 import Cookies from './utils/Cookies'
 
+const environment = import.meta.env?.PROD ? 'prod' : 'dev';
+console.log('currently running in', environment);
+
+if (environment == 'prod')
+    Cookies.Domain = "cametek.jp"
+
 const app = createApp(App)
 
 app.use(router)
