@@ -1,34 +1,22 @@
 <script setup lang="ts">
+import { reactive } from 'vue';
+
+import type { WikiArticle } from '@/api/models/articles/WikiArticle';
 
 import HomeCard from './cards/HomeCard.vue';
 
-const bentos = [
-	{
-		section: "Wiki",
-		cards: [
-			{ title: "About", description: "All about the Camellia Wiki!", link: "/wiki/about" },
-			{ title: "Card title", description: "a very cool and long description that wraps across multiple lines", link: "/" },
-			{ title: "Card title", description: "a very cool and long description that wraps across multiple lines", link: "/" }
-		]
-	},
-	{
-		section: "Camellia",
-		cards: [
-			{ title: "Camellia", description: "The one and only Camellia! Here, you can find information about Camellia's background and accomplishments.", link: "/camellia" },
-			{ title: "Song Use", description: "Camellia's Music Usage Guidelines. Where you can find information about how and when to use his music!", link: "/camellia/song-use" },
-			{ title: "Card title", description: "a very cool and long description that wraps across multiple lines", link: "/" }
-		]
-	},
-	{
-		section: "Community",
-		cards: [
-			{ title: "Camellia Discord Server", description: "Information about the ever changing Camellia Discord Server.", link: "/community/server" },
-			{ title: "Card title", description: "a very cool and long description that wraps across multiple lines", link: "/" },
-			{ title: "Card title", description: "a very cool and long description that wraps across multiple lines", link: "/" }
-		]
-	}
-];
+import API from '@/utils/API';
 
+const react = reactive<{
+	sections?: WikiArticle[][]
+}>({})
+
+API.PerformGet<WikiArticle[][]>('/home').then(res => {
+	if (!res.IsSuccess() || !res.data)
+		throw new Error(res.message)
+
+	react.sections = res.data
+}).catch(ex => console.log(ex))
 </script>
 
 <template>
@@ -36,10 +24,9 @@ const bentos = [
 		<h1 class="text-4xl">Camellia Wiki</h1>
 		<h3 class="text-xl">Where most of Camellia's work and the fandom is documented.</h3>
 	</div>
-	<div class="grid grid-cols-3 gap-4 w-full h-fit">
-		<div v-for="bento in bentos" :key="bento.section" class="grid gap-4">
-			<HomeCard v-for="card in bento.cards" :title="card.title" :description="card.description"
-				:link="card.link" />
+	<div class="grid grid-cols-3 gap-4 w-full h-fit" v-if="react.sections">
+		<div v-for="section in react.sections" class="flex flex-col gap-4">
+			<HomeCard v-for="art in section" :article="art" />
 		</div>
 	</div>
 </template>
