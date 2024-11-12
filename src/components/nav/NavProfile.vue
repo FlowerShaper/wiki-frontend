@@ -9,5 +9,5 @@ function ToggleOverlay() {
 </script>
 
 <template>
-    <img @click="ToggleOverlay" class="size-10 rounded-lg" :src="state.user?.avatar || Placeholder" alt="">
+    <img @click="ToggleOverlay" role="button" tabindex="0" aria-label="open profile overlay" class="size-10 rounded-lg cursor-pointer" :src="state.user?.avatar || Placeholder" alt="">
 </template>
