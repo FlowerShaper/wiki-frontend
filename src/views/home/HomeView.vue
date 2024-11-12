@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import CardView from './cards/CardView.vue';
+import HomeCard from './cards/HomeCard.vue';
 
 const bentos = [
 	{
@@ -38,7 +38,7 @@ const bentos = [
 	</div>
 	<div class="grid grid-cols-3 gap-4 w-full h-fit">
 		<div v-for="bento in bentos" :key="bento.section" class="grid gap-4">
-			<CardView v-for="card in bento.cards" :title="card.title" :description="card.description"
+			<HomeCard v-for="card in bento.cards" :title="card.title" :description="card.description"
 				:link="card.link" />
 		</div>
 	</div>
