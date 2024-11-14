@@ -1,33 +1,22 @@
-# wiki-frontend
+# Camellia Wiki - Frontend
+The curtain in front of the magic.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Getting Started
+> [!IMPORTANT]
+> Please install [NodeJS](https://nodejs.org). Ensure [NPM](https://npmjs.com) is included.
+> You may install [PNPM](https://pnpm.io) as your package manager instead.
 
-## Recommended IDE Setup
+To begin development and testing locally, please follow these steps in your terminal of choice:
+1. Clone the repo by running `git clone https://github.com/FlowerShaper/wiki-frontend`.
+2. Go inside the newly cloned folder (`cd wiki-frontend`).
+3. To install packages, run `npm i` (if using PNPM, run `pnpm i`).
+4. Now, to run the frontend, you'll need to run one of the following scripts, depending on the case:
+   - **Development**: `npm run dev`
+   - **Production**: `npm run build`
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+## Additional Info
+- [NodeJS Official Docs](https://nodejs.org/docs/latest/api/)
+- [Vue Official Docs](https://vuejs.org/guide/)
+- [Vite Official Docs](https://vite.dev/guide/)
+- [The TypeScript Handbook](https://typescriptlang.org/docs/handbook/)
+- [#💻dev-discussion](https://discord.com/channels/435720333786480641/1174624963584610334) in our [Discord](https://discord.gg/camellia)
