@@ -20,6 +20,8 @@ export default {
             },
             fontFamily: {
                 fa: "fa",
+                "fa-reg": "fa-regular",
+                system: [ "system-ui", "sans-serif" ]
             },
         },
     },
