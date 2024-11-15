@@ -14,17 +14,32 @@ const router = createRouter({
         {
             path: "/oauth/complete",
             name: "oauth-complete",
-            component: () => import('@/views/auth/AuthComplete.vue')
+            component: () => import("@/views/auth/AuthComplete.vue"),
         },
         {
-            path: '/settings',
-            name: 'settings',
-            component: () => import('@/views/settings/SettingsView.vue')
+            path: "/settings",
+            name: "settings",
+            component: () => import("@/views/settings/SettingsView.vue"),
+            children: [
+                {
+                    alias: "",
+                    path: "account",
+                    name: "settings:account",
+                    component: () =>
+                        import("@/views/settings/subviews/SettingsAccount.vue"),
+                },
+                {
+                    path: "appearance",
+                    name: "settings:appearance",
+                    component: () =>
+                        import("@/views/settings/subviews/SettingsAppearance.vue"),
+                },
+            ],
         },
         {
             path: "/user/:id",
             name: "user-profile",
-            component: () => import('@/views/user/UserView.vue')
+            component: () => import("@/views/user/UserView.vue"),
         },
         {
             path: "/:pathMatch(.*)*",
@@ -33,11 +48,10 @@ const router = createRouter({
         },
     ],
     scrollBehavior: (to, from, ___) => {
-        if (to.path == from.path)
-            return { el: to.hash, top: 80 }
+        if (to.path == from.path) return { el: to.hash, top: 80 };
 
-        return { top: 0 }
-    }
+        return { top: 0 };
+    },
 });
 
 export default router;
