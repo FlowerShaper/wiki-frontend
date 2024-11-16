@@ -8,7 +8,7 @@ import SidebarSection from './sidebar/SidebarSection.vue';
 </script>
 
 <template>
-    <PageBase class="flex flex-row !p-0 !pb-0">
+    <PageBase class="flex flex-row !p-0 !pb-0 xl:w-settings mx-auto">
         <div class="relative w-fit">
             <div class="absolute right-0 top-0 -z-10 h-[calc(100vh-64px)] w-screen bg-2"></div>
             <div class="z-0 w-48 flex flex-col gap-3 py-8 px-3">
