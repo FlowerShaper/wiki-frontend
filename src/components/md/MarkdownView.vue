@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { createApp, onMounted, ref, watch, nextTick } from 'vue';
-import { useRoute } from 'vue-router';
-
-import router from '@/router';
+import { useRoute, useRouter } from 'vue-router';
 
 import MarkdownBlockquote from './MarkdownBlockquote.vue';
 import MarkdownCodeBlock from './MarkdownCodeBlock.vue';
@@ -11,6 +9,7 @@ import MarkdownHeader from './MarkdownHeader.vue';
 import MarkdownImage from './MarkdownImage.vue';
 
 const route = useRoute()
+const router = useRouter();
 
 const props = defineProps<{
     content: string,

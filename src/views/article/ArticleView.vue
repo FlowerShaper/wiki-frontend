@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, reactive, watch } from 'vue';
+import { reactive, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import type { WikiArticle } from '@/api/models/articles/WikiArticle';
