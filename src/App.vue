@@ -2,6 +2,7 @@
 import { RouterView, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 
 import NavBar from './components/nav/NavBar.vue';
+import FooterBar from './components/footer/FooterBar.vue';
 import SettingsHandler from './components/SettingsHandler.vue';
 
 import ProfileOverlay from './overlays/profile/ProfileOverlay.vue';
@@ -37,6 +38,7 @@ function StringifyRoute(route: RouteLocationNormalizedLoadedGeneric) {
         </div>
 
         <NavBar />
+		<FooterBar />
     </div>
 </template>
 
