@@ -17,9 +17,12 @@ export default {
         extend: {
             width: {
                 page: 1536,
+                settings: 1280,
             },
             fontFamily: {
                 fa: "fa",
+                "fa-reg": "fa-regular",
+                system: [ "system-ui", "sans-serif" ]
             },
         },
     },

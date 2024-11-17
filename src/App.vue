@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 
 import NavBar from './components/nav/NavBar.vue';
 import SettingsHandler from './components/SettingsHandler.vue';
@@ -7,17 +7,27 @@ import SettingsHandler from './components/SettingsHandler.vue';
 import ProfileOverlay from './overlays/profile/ProfileOverlay.vue';
 
 import { settings } from './utils/State';
+
+function StringifyRoute(route: RouteLocationNormalizedLoadedGeneric) {
+    if (!route.name)
+        return route.path;
+
+    let result = (route.name as string).split(':')[0];
+
+    for (const [key, value] of Object.entries(route.params))
+        result += `/${key}:${value}`;
+
+    return result;
+}
 </script>
 
 <template>
     <SettingsHandler />
-    <div :class="{ 'font-sans': settings.simpleFont }">
-        <div class="overlap-grid w-full 2xl:w-page mx-auto min-h-screen px-8 pt-24 pb-16">
+    <div :class="{ 'font-system': settings.simpleFont }">
+        <div class="overlap-grid w-full 2xl:w-page mx-auto min-h-screen pt-16">
             <RouterView v-slot="{ Component, route }">
                 <Transition name="page-fade">
-                    <div class="w-full max-w-full" :key="route.path">
-                        <component :is="Component" />
-                    </div>
+                    <component :is="Component" :key="StringifyRoute(route)" />
                 </Transition>
             </RouterView>
         </div>
