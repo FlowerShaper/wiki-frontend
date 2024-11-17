@@ -40,7 +40,7 @@ export default class Markdown {
         const config: RendererObject = {
             heading: (head) => {
                 if (head.depth == 2 || head.depth == 3)
-                    return `<MarkdownHeader text="${head.text}" :level="${head.depth}" />`;
+                    return `<MarkdownHeader text="${head.text.replace(/\"/g, "&quot;")}" :level="${head.depth}" />`
 
                 return false;
             },
