@@ -55,7 +55,7 @@ function FetchArticle() {
         <ErrorContainer :text="react.error" v-else-if="react.error" />
         <div class="flex flex-col gap-9" v-else>
             <div class="flex flex-row w-full">
-                <div class="w-48 flex flex-col gap-2">
+                <div class="w-48 flex flex-col gap-2 sticky top-24 max-h-[36vh] overflow-y-auto">
                     <h3 class="text-primary">Contents</h3>
                     <ol class="list-decimal list-inside">
                         <li class="text-lg" v-for="sec in react.parsed?.sections">
