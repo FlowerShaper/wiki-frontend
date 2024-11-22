@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 import type { WikiArticle } from '@/api/models/articles/WikiArticle';
 
 import PageBase from '@/components/page/PageBase.vue';
+import NormalLogo from '@/components/logo/NormalLogo.vue';
 
 import HomeCard from './cards/HomeCard.vue';
 
@@ -33,9 +34,9 @@ API.PerformGet<WikiArticle[][]>('/home').then(res => {
 
 <template>
 	<PageBase>
-		<div class="text-center flex flex-col h-72 gap-2 items-center justify-center transition-all ease-out duration-500"
+		<div class="text-center flex flex-col h-72 gap-6 items-center justify-center transition-all ease-out duration-500"
 			:class="{ '!h-full scale-125': react.loading }">
-			<h1 class="text-4xl">Camellia Wiki</h1>
+			<NormalLogo class="h-40" />
 			<h3 class="text-xl">Where most of Camellia's work and the fandom is documented.</h3>
 		</div>
 		<Transition name="fade">
