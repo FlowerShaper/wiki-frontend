@@ -25,7 +25,7 @@ function StringifyRoute(route: RouteLocationNormalizedLoadedGeneric) {
 <template>
     <SettingsHandler />
     <div :class="{ 'font-system': settings.simpleFont }">
-        <div class="overlap-grid w-full 2xl:w-page mx-auto min-h-screen pt-16">
+        <div class="overlap-grid w-full 2xl:w-page mx-auto min-h-[calc(100vh-4rem)] pt-16">
             <RouterView v-slot="{ Component, route }">
                 <Transition name="page-fade">
                     <component :is="Component" :key="StringifyRoute(route)" />

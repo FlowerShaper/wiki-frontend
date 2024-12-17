@@ -35,7 +35,7 @@ API.PerformGet<WikiArticle[][]>('/home').then(res => {
 <template>
 	<PageBase>
 		<div class="text-center flex flex-col h-72 gap-6 items-center justify-center transition-all ease-out duration-500"
-			:class="{ '!h-full scale-125': react.loading }">
+			:class="{ '!h-[calc(100vh-4rem)] pb-16 scale-125': react.loading }">
 			<NormalLogo class="h-40" />
 			<h3 class="text-xl">Where most of Camellia's work and the fandom is documented.</h3>
 		</div>
