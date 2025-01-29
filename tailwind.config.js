@@ -1,4 +1,4 @@
-const { createThemes } = require("tw-colors");
+import { createThemes } from "tw-colors";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -22,7 +22,7 @@ export default {
             fontFamily: {
                 fa: "fa",
                 "fa-reg": "fa-regular",
-                system: [ "system-ui", "sans-serif" ]
+                system: ["system-ui", "sans-serif"],
             },
         },
     },
@@ -58,7 +58,7 @@ export default {
                 4: "#56304C",
                 text: "#ffffff",
                 primary: "#F876D3",
-                secondary: '#EF656E'
+                secondary: "#EF656E",
             },
             catppuccin: {
                 1: "#303446",
@@ -67,7 +67,7 @@ export default {
                 4: "#626880",
                 text: "#c6d0f5",
                 primary: "#8caaee",
-                secondary: '#babbf1'
+                secondary: "#babbf1",
             },
         }),
     ],
