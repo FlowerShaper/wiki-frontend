@@ -77,7 +77,7 @@ export default class API {
         if (path.startsWith('/'))
             path = path.substring(1)
 
-        return path.replace('/', '-').toLowerCase()
+        return path.replace(/\//gi, '-').toLowerCase()
     }
 
     static Logout() {
