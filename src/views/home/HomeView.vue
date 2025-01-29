@@ -40,7 +40,7 @@ API.PerformGet<WikiArticle[][]>('/home').then(res => {
 			<h3 class="text-xl">Where most of Camellia's work and the fandom is documented.</h3>
 		</div>
 		<Transition name="fade">
-			<div class="grid grid-cols-3 gap-4 w-full h-fit" v-if="!react.loading && react.sections">
+			<div class="grid md:grid-cols-3 gap-4 w-full h-fit" v-if="!react.loading && react.sections">
 				<div v-for="section in react.sections" class="flex flex-col gap-4">
 					<HomeCard v-for="art in section" :article="art" />
 				</div>
