@@ -24,6 +24,9 @@ export default {
                 "fa-reg": "fa-regular",
                 system: ["system-ui", "sans-serif"],
             },
+            zIndex: {
+                1: "1",
+            },
         },
     },
     safelist: [
