@@ -100,7 +100,7 @@ enum SubMenu {
 					</template>
 					<div v-else-if="react.menu == SubMenu.Language">
 						<ProfileOverlayButton @click="CloseSubMenu" :icon="'\uf060'" text="back" />
-						<ProfileOverlayButton @click="ChangeLanguage(l.id)" :icon="l.icon || '\uf57d'" :text="l.id"
+						<ProfileOverlayButton @click="ChangeLanguage(l.id)" :icon="l.icon || '\uf57d'" :text="l.name"
 							v-for="l in languages" />
 					</div>
 					<div v-else-if="react.menu == SubMenu.Theme">
