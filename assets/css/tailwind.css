@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'fa';
+    font-weight: 900;
+    src: url('../fonts/fa-solid.ttf');
+}
+
+@font-face {
+    font-family: 'fa-regular';
+    font-weight: 400;
+    src: url('../fonts/fa-regular.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.overlap-grid {
+    display: grid;
+}
+
+.overlap-grid > * {
+    width: 100%;
+    height: inherit;
+    grid-area: 1 / 1;
+    z-index: 1;
+}
