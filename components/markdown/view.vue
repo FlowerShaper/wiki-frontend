@@ -40,5 +40,9 @@ defineProps<{
             @apply text-lg;
         }
     }
+
+    mark {
+        @apply bg-primary px-1.5 py-0.5 rounded;
+    }
 }
 </style>
