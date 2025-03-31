@@ -28,10 +28,12 @@ const languages = [
     {
         id: 'en',
         name: 'english',
+        icon: 'flag:gb-1x1',
     },
     {
         id: 'jp',
-        name: 'japanese',
+        name: '日本語',
+        icon: 'flag:jp-1x1',
     },
 ];
 
@@ -98,11 +100,22 @@ enum SubMenu {
                     </template>
                     <div v-else-if="react.menu == SubMenu.Language">
                         <ProfileOverlayButton @click="CloseSubMenu" :icon="'\uf060'" text="back" />
-                        <ProfileOverlayButton @click="ChangeLanguage(l.id)" :icon="'\uf57d'" :text="l.id" v-for="l in languages" />
+                        <ProfileOverlayButton @click="ChangeLanguage(l.id)" :text="l.name" v-for="l in languages">
+                            <template v-slot:icon>
+                                <Icon :name="l.icon" class="size-4 rounded-sm" />
+                            </template>
+                            <template v-slot:right>
+                                <p class="font-fa" v-if="settings.language == l.id">{{ '\uf00c' }}</p>
+                            </template>
+                        </ProfileOverlayButton>
                     </div>
                     <div v-else-if="react.menu == SubMenu.Theme">
                         <ProfileOverlayButton @click="CloseSubMenu" :icon="'\uf060'" text="back" />
-                        <ProfileOverlayButton @click="ChangeTheme(t.id)" :icon="t.icon" :text="t.id" v-for="t in themes" />
+                        <ProfileOverlayButton @click="ChangeTheme(t.id)" :icon="t.icon" :text="t.id" v-for="t in themes">
+                            <template v-slot:right>
+                                <p class="font-fa" v-if="settings.theme == t.id">{{ '\uf00c' }}</p>
+                            </template>
+                        </ProfileOverlayButton>
                     </div>
                 </div>
             </div>
