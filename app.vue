@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { settings } from '~/utils/state';
 import API from './utils/api';
-import Cookies from './utils/cookies';
 
 LoadSettings();
 API.Setup();

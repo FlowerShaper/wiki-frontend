@@ -9,17 +9,19 @@ const defaultSettings: Settings = {
 };
 
 export const state = reactive<{
+    played_home_animation: boolean;
     overlays: {
         profile?: boolean;
     };
 }>({
+    played_home_animation: false,
     overlays: {},
 });
 
 export const settings = reactive<Settings>({ ...defaultSettings });
 
 export function LoadSettings() {
-    Object.assign(settings, Cookies.Get('settings'))
+    Object.assign(settings, Cookies.Get('settings'));
 }
 
 export function UpdateSetting(func: (setting: Settings) => void) {

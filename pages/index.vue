@@ -2,23 +2,19 @@
 import type { WikiArticle } from '~/models/articles/WikiArticle';
 import API from '~/utils/api';
 
-const react = reactive<{
-    loading: boolean;
-}>({
-    loading: true,
-});
-
 const sections = (await API.PerformGet<WikiArticle[][]>('/home')).data;
-setTimeout(() => {
-    react.loading = false;
-}, 800);
+if (import.meta.client) {
+    setTimeout(() => {
+        state.played_home_animation = true;
+    }, 800);
+}
 </script>
 
 <template>
     <PageBase>
         <div
             class="text-center flex flex-col h-72 gap-6 items-center justify-center transition-all ease-out duration-500"
-            :class="{ '!h-[calc(100vh-4rem)] pb-16 scale-125': react.loading }"
+            :class="{ '!h-[calc(100vh-4rem)] pb-16 scale-125': !state.played_home_animation }"
         >
             <LogoNormal class="h-40" />
             <h3 class="text-xl">Where most of Camellia's work and the fandom is documented.</h3>
