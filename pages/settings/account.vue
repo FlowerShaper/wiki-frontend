@@ -1,3 +1,5 @@
 <template>
-    <SettingsSubBase title="my account"> </SettingsSubBase>
+    <SettingsSubBase title="my account">
+        <InfoWip />
+    </SettingsSubBase>
 </template>

@@ -2,7 +2,7 @@
 import type { WikiArticle } from '~/models/articles/WikiArticle';
 import API from '~/utils/api';
 
-const sections = (await API.PerformGet<WikiArticle[][]>('/home')).data;
+const { data: sections } = await API.PerformGet<WikiArticle[][]>('/home');
 if (import.meta.client) {
     setTimeout(() => {
         state.played_home_animation = true;

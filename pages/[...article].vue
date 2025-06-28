@@ -7,12 +7,12 @@ import Markdown from '~/utils/markdown';
 const route = useRoute();
 const path = `/${(<string[]>route.params.article).join('/')}`;
 
-const res = await API.PerformGet<WikiArticle>(`/articles?path=${path}&lang=${settings.language}`);
+const { data: article, error } = await API.PerformGet<WikiArticle>(`/articles?path=${path}&lang=${settings.language}`);
+console.log(error)
 
-let article: WikiArticle, parsed: ParsedMarkdown, content: string;
+let parsed: ParsedMarkdown, content: string;
 
-if (res.IsSuccess() && res.data) {
-    article = res.data;
+if (article) {
     parsed = Markdown.Parse(article.content);
     content = Markdown.Render(article.content);
 }
@@ -20,7 +20,6 @@ if (res.IsSuccess() && res.data) {
 
 <template>
     <PageBase>
-        <!-- <ErrorContainer :text="react.error" v-if="react.error" /> -->
         <div class="flex flex-col gap-9" v-if="parsed && article && content">
             <div class="flex flex-row w-full">
                 <div class="w-48 flex flex-col gap-2 sticky top-24 max-h-[36vh]">
@@ -47,5 +46,6 @@ if (res.IsSuccess() && res.data) {
             </div>
             <ArticleComments :path="path" />
         </div>
+        <InfoNotFound :text="error?.message" v-else-if="error" />
     </PageBase>
 </template>

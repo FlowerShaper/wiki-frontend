@@ -1,6 +1,9 @@
 import { APIResponse } from '~/models/APIResponse';
 import type WikiUser from '~/models/users/WikiUser';
 import type { CookieRef } from '#app';
+import type { Exception } from 'sass-embedded';
+import type { Result } from '~/models/ResultStates';
+import { APIError } from '~/models/APIError';
 
 export default class API {
     static APIUrl = 'http://localhost:1984';
@@ -21,24 +24,24 @@ export default class API {
         });
     }
 
-    static async PerformGet<T>(endpoint: string): Promise<APIResponse<T>> {
-        return perform<T>(endpoint, 'GET');
+    static async PerformGet<T, E = Exception>(endpoint: string): Promise<Result<T, E>> {
+        return tryPerform<T, E>(endpoint, 'GET');
     }
 
-    static async PerformPost<T>(endpoint: string, body: any): Promise<APIResponse<T>> {
-        return perform<T>(endpoint, 'POST', body);
+    static async PerformPost<T, E = Exception>(endpoint: string, body: any): Promise<Result<T, E>> {
+        return tryPerform<T, E>(endpoint, 'POST', body);
     }
 
-    static async PerformPatch<T>(endpoint: string, body: any): Promise<APIResponse<T>> {
-        return perform<T>(endpoint, 'PATCH', body);
+    static async PerformPatch<T, E = Exception>(endpoint: string, body: any): Promise<Result<T, E>> {
+        return tryPerform<T, E>(endpoint, 'PATCH', body);
     }
 
-    static async PerformPut<T>(endpoint: string, body: any): Promise<APIResponse<T>> {
-        return perform<T>(endpoint, 'PUT', body);
+    static async PerformPut<T, E = Exception>(endpoint: string, body: any = {}): Promise<Result<T, E>> {
+        return tryPerform<T, E>(endpoint, 'PUT', body);
     }
 
-    static async PerformDelete<T>(endpoint: string, body: any = {}): Promise<APIResponse<T>> {
-        return perform<T>(endpoint, 'DELETE', body);
+    static async PerformDelete<T, E = Exception>(endpoint: string, body: any = {}): Promise<Result<T, E>> {
+        return tryPerform<T, E>(endpoint, 'DELETE', body);
     }
 
     static OpenLogin() {
@@ -95,36 +98,57 @@ export default class API {
     }
 
     static async RefreshInfo() {
-        const res = await API.PerformGet<WikiUser>('/users/@me');
+        const { data: user, error } = await API.PerformGet<WikiUser>('/users/@me');
 
-        if (!res.IsSuccess() || !res.data) {
+        if (error) {
             this.Logout();
             return;
         }
 
-        this.CurrentUser.value = res.data;
+        this.CurrentUser.value = user;
     }
 }
 
+async function tryPerform<T, E = Exception>(endpoint: string, method: string, body: any = {}): Promise<Result<T, E>> {
+    try {
+        const res = await perform<T>(endpoint, method, body);
+
+        if (!res.IsSuccess() || !res.data) throw new APIError(res);
+
+        return { data: res.data, error: null };
+    } catch (ex: any) {
+        return { data: null, error: ex as E };
+    }
+}
 async function perform<T>(endpoint: string, method: string, body: any = {}): Promise<APIResponse<T>> {
-    var opt = {
-        baseURL: API.APIUrl,
-        headers: createHeaders(),
-        body: undefined,
-    };
+    const rsp = new APIResponse<T>();
 
-    if (method != 'GET' && body) opt.body = body;
+    try {
+        var opt = {
+            baseURL: API.APIUrl,
+            headers: createHeaders(),
+            body: undefined,
+            method: method as any, // ts can be really stupid sometimes
+        };
 
-    const { data, error } = await useFetch<T>(endpoint, opt);
+        if (method != 'GET' && body) opt.body = body;
 
-    if (error.value?.statusCode == 204) {
-        const rsp = new APIResponse<T>();
-        rsp.status = 204;
-        return rsp;
+        let { data, error } = await useFetch<T>(endpoint, opt);
+
+        if (error.value) {
+            if (error.value?.data) data.value = error.value.data;
+            else throw error.value;
+        }
+
+        if (error.value?.statusCode == 204) rsp.status = 204;
+        else Object.assign(rsp, data.value);
+    } catch (ex: any) {
+        console.error(ex);
+
+        rsp.status = 500;
+        rsp.message = ex?.message || 'Unknown error';
     }
 
-    let rsp = new APIResponse<T>();
-    Object.assign(rsp, data.value);
     return rsp;
 }
 

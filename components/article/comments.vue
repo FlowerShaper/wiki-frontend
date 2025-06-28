@@ -6,21 +6,13 @@ const props = defineProps<{
     path: string;
 }>();
 
-const res = await API.PerformGet<WikiComment[]>(`/posts/${API.PathToSlug(props.path)}/comments`);
-
-let comments: WikiComment[], error: string;
-
-if (res.IsSuccess() && res.data) {
-    comments = res.data;
-} else {
-    error = res.message;
-}
+const { data: comments, error } = await API.PerformGet<WikiComment[]>(`/posts/${API.PathToSlug(props.path)}/comments`);
 </script>
 
 <template>
     <div class="flex flex-col">
         <!-- <ArticleCommentInput /> -->
-        <p class="text-center text-bq-danger" v-if="error">{{ error }}</p>
+        <InfoNotFound :text="error.message" v-if="error" />
         <Comment :comment="c" v-for="c in comments" />
     </div>
 </template>
