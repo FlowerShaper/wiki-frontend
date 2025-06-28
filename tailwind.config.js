@@ -2,7 +2,7 @@ import { createThemes } from 'tw-colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ['./index.html', './{components,layouts,pages}/**/*.{vue,js,ts,jsx,tsx}'],
+    content: ['./src/app.vue', './src/{components,layouts,pages}/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
         colors: {
             black: '#000',
