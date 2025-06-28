@@ -12,7 +12,7 @@ else // clean up regardless
 </script>
 
 <template>
-    <NuxtLoadingIndicator />
+    <NuxtLoadingIndicator color="#a3a2d8" />
     <ClientOnly>
         <SettingsHandler />
     </ClientOnly>
