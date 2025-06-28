@@ -39,7 +39,7 @@ if (res.IsSuccess() && res.data) {
                 <div class="w-1 bg-2 rounded mx-6"></div>
                 <div class="flex flex-col flex-1 gap-4 max-w-full min-w-0">
                     <div>
-                        <h1 class="text-4xl text-primary">{{ article.meta.title }}</h1>
+                        <h1 class="text-4xl text-primary font-bold">{{ article.meta.title }}</h1>
                         <p class="opacity-75">written by {{ article.meta.author }}</p>
                     </div>
                     <MarkdownView :content="content" />

@@ -17,7 +17,7 @@ else // clean up regardless
         <SettingsHandler />
     </ClientOnly>
 
-    <div :class="{ 'font-system': settings.simpleFont }">
+    <div :class="{ 'font-simple': settings.simpleFont }">
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
