@@ -7,7 +7,9 @@ export default class API {
     static TokenCookie: CookieRef<string | undefined>;
     static CurrentUser: CookieRef<WikiUser | undefined>;
 
-    static Setup() {
+    static Setup(dev: boolean) {
+        this.APIUrl = dev ? 'http://localhost:1984' : 'https://backend.camellia.wiki';
+
         this.TokenCookie = useCookie('token', {
             sameSite: 'lax',
             maxAge: 365 * 24 * 60 * 60,

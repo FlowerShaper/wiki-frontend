@@ -3,7 +3,7 @@ import { settings } from '~/utils/state';
 import API from './utils/api';
 
 LoadSettings();
-API.Setup();
+API.Setup(import.meta.dev);
 
 if (API.TokenCookie.value)
     await API.RefreshInfo();
