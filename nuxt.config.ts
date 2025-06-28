@@ -2,8 +2,9 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
-    srcDir: 'src',
     modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxt/icon', '@nuxtjs/mdc'],
+    srcDir: 'src',
+    components: true,
     app: {
         pageTransition: {
             name: 'page-fade',
@@ -11,5 +12,5 @@ export default defineNuxtConfig({
     },
     experimental: {
         asyncContext: true,
-    },
+    }
 });

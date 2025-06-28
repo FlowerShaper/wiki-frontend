@@ -40,21 +40,14 @@ export default class Markdown {
         const config: RendererObject = {
             heading: (head) => {
                 if (head.depth == 2 || head.depth == 3)
-                    return `<MarkdownHeader text="${head.text.replace(/\"/g, "&quot;")}" :level="${head.depth}"></MarkdownHeader>`
+                    return `<markdown-header text="${head.text.replace(/\"/g, "&quot;")}" :level="${head.depth}"></markdown-header>`
 
                 return false;
-            },
-            link: (link) => {
-                if (link.href.startsWith('/')) {
-                    return `<NuxtLink to="${link.href}">${link.text}</NuxtLink>`
-                }
-
-                return false
             },
             code: (code) => {
                 const text = code.text
                 const lines = text.split('\n')
-                return `<MarkdownCodeBlock lang="${code.lang}"><span>${lines.join('</span><span>')}</span></MarkdownCodeBlock>`
+                return `<markdown-code-block lang="${code.lang}"><span>${lines.join('</span><span>')}</span></markdown-code-block>`
             },
             blockquote: (block) => {
                 let content = block.text
@@ -68,10 +61,10 @@ export default class Markdown {
                     content = content.replace(match[0], '').trim()
                 }
 
-                return `<MarkdownBlockquote type="${type}">${content}</MarkdownBlockquote>`
+                return `<markdown-blockquote type="${type}">${content}</markdown-blockquote>`
             },
             image: (image) =>
-                `<MarkdownImage path="${image.href}" alt="${image.text}"></MarkdownImage>`,
+                `<markdown-image path="${image.href}" alt="${image.text}"></markdown-image>`,
         };
 
         marked.use({ renderer: config });
@@ -139,7 +132,7 @@ export default class Markdown {
 
                 html = html.replace(
                     raw,
-                    `<MarkdownFootnote :num="${num}"></MarkdownFootnote>`
+                    `<markdown-footnote :num="${num}"></markdown-footnote>`
                 );
             })
         }

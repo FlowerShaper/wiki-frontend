@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-    <MDC :value="content" class="md-content prose"></MDC>
+    <MDC :value="content" class="md-content"></MDC>
 </template>
 
 <style lang="scss">
