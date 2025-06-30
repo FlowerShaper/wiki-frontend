@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "wiki-frontend",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,17 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "marked": "^15.0.7",
-    "nuxt": "^3.16.1",
+    "marked": "^16.0.0",
+    "nuxt": "^3.17.5",
     "tw-colors": "^3.3.2",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@nuxt/icon": "^1.11.0",
+    "@nuxt/icon": "^1.15.0",
     "@nuxt/image": "^1.10.0",
-    "@nuxtjs/mdc": "^0.16.1",
-    "@nuxtjs/tailwindcss": "^6.13.2",
-    "sass-embedded": "^1.86.0"
+    "@nuxtjs/mdc": "^0.17.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "sass-embedded": "^1.89.2"
   }
 }
