@@ -8,8 +8,6 @@ const route = useRoute();
 const path = `/${(<string[]>route.params.article).join('/')}`;
 
 const { data: article, error } = await API.PerformGet<WikiArticle>(`/articles?path=${path}&lang=${settings.language}`);
-console.log(error)
-
 let parsed: ParsedMarkdown, content: string;
 
 if (article) {
