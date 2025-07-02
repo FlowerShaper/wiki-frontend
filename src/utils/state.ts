@@ -13,8 +13,14 @@ export const state = reactive<{
     overlays: {
         profile?: boolean;
     };
+    image_showing: boolean;
+    image?: {
+        url: string;
+        name: string;
+    };
 }>({
     played_home_animation: false,
+    image_showing: false,
     overlays: {},
 });
 
@@ -29,6 +35,14 @@ export function UpdateSetting(func: (setting: Settings) => void) {
 
     const json = JSON.stringify(settings);
     Cookies.Set('settings', json);
+}
+
+export function ShowImage(url: string, name: string) {
+    state.image_showing = true;
+    state.image = {
+        url: url,
+        name: name,
+    };
 }
 
 type Settings = {

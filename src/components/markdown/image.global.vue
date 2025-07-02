@@ -4,7 +4,7 @@ const props = defineProps<{
     alt: string;
 }>();
 
-let trimmed = props.alt.replace('<', '').replace('>', '');
+let trimmed = props.alt.replace('<', '').replace('>', '').trimStart().trimEnd();
 
 const left = props.alt.endsWith('<');
 const right = props.alt.endsWith('>');
@@ -16,10 +16,10 @@ const right = props.alt.endsWith('>');
         :class="{
             'float-left mr-4': left,
             'float-right ml-4': right,
-            'w-full h-auto': !left && !right,
+            'h-auto w-full': !left && !right,
         }"
     >
-        <NuxtImg class="rounded-xl" :src="path" />
-        <p class="opacity-75 text-center">{{ trimmed.trimStart().trimStart() }}</p>
+        <NuxtImg class="rounded-xl" :src="path" @click="ShowImage(path, trimmed)" />
+        <p class="text-center opacity-75">{{ trimmed }}</p>
     </div>
 </template>
