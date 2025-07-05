@@ -50,6 +50,12 @@ const track: DiscographyTrack = {
 const has_romanized = track.title_romanized && track.title != track.title_romanized;
 const current_cover = ref<{ name: string; url: string }>();
 if (track.covers) current_cover.value = track.covers[0];
+
+SetMetadata(
+    `${track.title}${has_romanized ? ` (${track.title_romanized})` : ''}`,
+    track.albums?.length ? `from ${track.albums[0].title}` : '',
+    track.covers?.at(0)?.url,
+);
 </script>
 
 <template>
@@ -64,7 +70,12 @@ if (track.covers) current_cover.value = track.covers[0];
                     <p class="line-clamp-1 w-full truncate px-3 py-2 text-center font-semibold">
                         {{ track.title }}
                     </p>
-                    <img class="aspect-square w-full rounded-lg object-cover" :src="current_cover.url" v-if="current_cover" @click="ShowImage(current_cover.url, current_cover.name)" />
+                    <img
+                        class="aspect-square w-full rounded-lg object-cover"
+                        :src="current_cover.url"
+                        v-if="current_cover"
+                        @click="ShowImage(current_cover.url, current_cover.name)"
+                    />
                     <div class="grid grid-flow-col border-2 border-b-3" v-if="track.covers?.length">
                         <div
                             class="flex h-11 cursor-pointer flex-col items-center justify-center text-sm hover:underline"

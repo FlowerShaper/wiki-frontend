@@ -13,6 +13,8 @@ let parsed: ParsedMarkdown, content: string;
 if (article) {
     parsed = Markdown.Parse(article.content);
     content = Markdown.Render(article.content);
+
+    SetMetadata(article.meta.title, article.meta.description, article.meta.image);
 }
 </script>
 

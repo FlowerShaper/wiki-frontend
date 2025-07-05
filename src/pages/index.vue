@@ -8,13 +8,15 @@ if (import.meta.client) {
         state.played_home_animation = true;
     }, 800);
 }
+
+SetMetadata('Camellia Wiki', 'home page');
 </script>
 
 <template>
     <PageBase>
         <div
             class="flex h-72 flex-col items-center justify-center gap-6 text-center transition-all duration-500 ease-out"
-            :class="{ '!h-[calc(100vh-4rem)] md:scale-125 pb-16': !state.played_home_animation }"
+            :class="{ '!h-[calc(100vh-4rem)] pb-16 md:scale-125': !state.played_home_animation }"
         >
             <LogoNormal class="h-28 md:h-40" />
             <h3 class="text-lg md:text-xl">Where most of Camellia's work and the fandom is documented.</h3>
