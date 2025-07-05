@@ -67,22 +67,25 @@ enum SubMenu {
 
 <template>
     <Transition name="profile">
-        <div v-if="state.overlays.profile" @click="Close" class="fixed size-full top-0 left-0 pointer-events-auto bg-black bg-opacity-25">
-            <div class="w-full 2xl:w-page mx-auto">
-                <div @click="$event.stopPropagation()" class="flex flex-col ml-auto mt-20 mr-6 w-64 bg-2 p-2 rounded-xl gap-2 origin-top-right">
+        <div v-if="state.overlays.profile" @click="Close" class="pointer-events-auto fixed left-0 top-0 size-full bg-black bg-opacity-25">
+            <div class="mx-auto w-full 2xl:w-page">
+                <div
+                    @click="$event.stopPropagation()"
+                    class="ml-auto mt-16 flex w-full origin-top-right flex-col gap-2 rounded-b-xl bg-2 p-2 md:mr-6 md:mt-20 md:w-64 md:rounded-xl"
+                >
                     <template v-if="!react.menu">
                         <div class="flex flex-col">
-                            <div class="overlap-grid w-full h-20 rounded overflow-hidden">
+                            <div class="overlap-grid h-20 w-full overflow-hidden rounded">
                                 <img class="size-full object-cover" :src="API.CurrentUser.value?.banner || Placeholder" alt="" />
                                 <div class="bg-1 opacity-50"></div>
                             </div>
-                            <div class="z-10 flex flex-col items-center -mt-12">
-                                <img class="size-16 rounded-lg mb-1" :src="API.CurrentUser.value?.avatar || Placeholder" alt="" />
+                            <div class="z-10 -mt-12 flex flex-col items-center">
+                                <img class="mb-1 size-16 rounded-lg" :src="API.CurrentUser.value?.avatar || Placeholder" alt="" />
                                 <p class="text-base">{{ API.CurrentUser.value?.name || 'not logged in' }}</p>
                                 <p class="text-xs opacity-80">{{ API.CurrentUser.value?.staff ? 'staff' : 'visitor' }}</p>
                             </div>
                         </div>
-                        <div class="w-full h-1 px-2">
+                        <div class="h-1 w-full px-2">
                             <div class="size-full bg-3"></div>
                         </div>
                         <div class="flex flex-col">
@@ -126,7 +129,9 @@ enum SubMenu {
 <style lang="scss">
 .profile-enter-active,
 .profile-leave-active {
-    transition: opacity 150ms, transform 300ms;
+    transition:
+        opacity 150ms,
+        transform 300ms;
 
     > div > div {
         transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -144,7 +149,7 @@ enum SubMenu {
     pointer-events: none;
 
     > div > div {
-        transform: scale(0.95);
+        @apply -translate-y-4 md:translate-y-0 md:scale-95;
     }
 }
 </style>

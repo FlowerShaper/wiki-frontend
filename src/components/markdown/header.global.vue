@@ -12,8 +12,8 @@ const id = props.text.toLowerCase().replace(/[^\w]+/g, '-');
         <div
             class="h-0.5 rounded"
             :class="{
-                '! w-16 bg-primary': level == 2,
-                'w-12 bg-4 !text-2xl font-medium': level == 3,
+                'w-16 bg-primary': level == 2,
+                'w-12 bg-4': level == 3,
             }"
         ></div>
         <component

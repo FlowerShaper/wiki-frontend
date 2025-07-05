@@ -19,13 +19,13 @@ if (article) {
 <template>
     <PageBase>
         <div class="flex flex-col gap-9" v-if="parsed && article && content">
-            <div class="flex flex-row w-full">
-                <div class="w-48 flex flex-col gap-2 sticky top-24 max-h-[36vh]">
+            <div class="flex w-full flex-row">
+                <div class="sticky top-24 hidden max-h-[36vh] w-48 flex-col gap-2 md:flex">
                     <h3 class="text-primary">Contents</h3>
-                    <ol class="list-decimal list-inside">
+                    <ol class="list-inside list-decimal">
                         <li class="text-lg" v-for="sec in parsed.sections">
                             <a class="hover:font-semibold" :href="`#${sec.id}`">{{ sec.title }}</a>
-                            <ul class="list-disc list-inside pl-4 text-base" v-if="sec.subs">
+                            <ul class="list-inside list-disc pl-4 text-base" v-if="sec.subs">
                                 <li v-for="sub in sec.subs">
                                     <a class="hover:font-semibold" :href="`#${sub.id}`">{{ sub.title }}</a>
                                 </li>
@@ -33,10 +33,10 @@ if (article) {
                         </li>
                     </ol>
                 </div>
-                <div class="w-1 bg-2 rounded mx-6"></div>
-                <div class="flex flex-col flex-1 gap-4 max-w-full min-w-0">
+                <div class="mx-6 hidden w-1 rounded bg-2 md:block"></div>
+                <div class="flex min-w-0 max-w-full flex-1 flex-col gap-4">
                     <div>
-                        <h1 class="text-4xl text-primary font-bold">{{ article.meta.title }}</h1>
+                        <h1 class="text-4xl font-bold text-primary">{{ article.meta.title }}</h1>
                         <p class="opacity-75">written by {{ article.meta.author }}</p>
                     </div>
                     <MarkdownView :content="content" />

@@ -12,11 +12,11 @@ const right = props.alt.endsWith('>');
 
 <template>
     <div
-        class="flex flex-col gap-2"
+        class="flex w-full flex-col gap-2 md:h-auto md:w-auto"
         :class="{
-            'float-left mr-4': left,
-            'float-right ml-4': right,
-            'h-auto w-full': !left && !right,
+            'md:max-w-1/2 md:float-left md:mr-4': left,
+            'md:max-w-1/2 md:float-right md:ml-4': right,
+            'md:h-auto md:w-full': !left && !right,
         }"
     >
         <NuxtImg class="rounded-xl" :src="path" @click="ShowImage(path, trimmed)" />

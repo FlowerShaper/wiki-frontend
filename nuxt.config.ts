@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     srcDir: 'src',
     components: true,
     app: {
+        head: {
+            title: 'Camellia Wiki',
+            viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+            meta: [{ name: 'darkreader', content: 'meow' }],
+        },
         pageTransition: {
             name: 'page-fade',
         },
