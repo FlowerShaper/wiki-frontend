@@ -22,9 +22,7 @@ export const state = reactive<{
 }>({
     played_home_animation: false,
     image_showing: false,
-    overlays: {
-        search: true
-    },
+    overlays: {},
 });
 
 export const settings = reactive<Settings>({ ...defaultSettings });
