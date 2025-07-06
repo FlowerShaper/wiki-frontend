@@ -17,6 +17,7 @@ export default {
             width: {
                 page: 1536,
                 settings: 1280,
+                search: 1024,
             },
             fontFamily: {
                 fa: 'fa',

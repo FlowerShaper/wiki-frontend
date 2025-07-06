@@ -12,6 +12,7 @@ export const state = reactive<{
     played_home_animation: boolean;
     overlays: {
         profile?: boolean;
+        search?: boolean;
     };
     image_showing: boolean;
     image?: {
@@ -21,7 +22,9 @@ export const state = reactive<{
 }>({
     played_home_animation: false,
     image_showing: false,
-    overlays: {},
+    overlays: {
+        search: true
+    },
 });
 
 export const settings = reactive<Settings>({ ...defaultSettings });

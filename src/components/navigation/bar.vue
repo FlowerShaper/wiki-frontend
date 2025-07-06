@@ -7,6 +7,7 @@
             <div class="flex flex-row items-center gap-4">
                 <a class="hidden hover:underline md:block" href="https://github.com/FlowerShaper">github</a>
                 <a class="hidden hover:underline md:block" href="https://discord.gg/camellia">discord</a>
+                <p class="hidden hover:underline md:block" @click="state.overlays.search = !state.overlays.search">search</p>
 
                 <div class="mx-2 hidden h-6 w-1 rounded bg-3 md:block"></div>
 
