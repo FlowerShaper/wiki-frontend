@@ -1,66 +1,27 @@
 <script setup lang="ts">
 import type { DiscographyTrack } from '~/models/discography/DiscographyTrack';
+import API from '~/utils/api';
 import Markdown from '~/utils/markdown';
 
-const track: DiscographyTrack = {
-    id: 'bassline-yatteru',
-    title: 'ベースラインやってる？笑',
-    title_romanized: 'Can I friend you on bassbook? lol',
-    content: `**ベースラインやってる？笑** is a song by [かめりあ](/camellia) feat. [ななひら](/camellia/guest-appearances/nanahira) first released on 2017-12-29.`,
-    covers: [
-        {
-            name: 'KCCD-006',
-            url: 'https://cdn.camellia.wiki/images/camellia/albums/KCCD-006.png',
-        },
-        {
-            name: 'KCCD-007',
-            url: 'https://cdn.camellia.wiki/images/camellia/albums/KCCD-007.png',
-        },
-    ],
-    length: '04:47',
-    albums: [
-        {
-            id: 'force',
-            title: '4orce!',
-            title_romanized: '4orce!',
-        },
-    ],
-    credits: [
-        {
-            role: 'Composition',
-            name: 'かめりあ',
-        },
-        {
-            role: 'Lyrics',
-            name: 'かめりあ',
-        },
-        {
-            role: 'Vocals',
-            name: 'ななひら',
-        },
-    ],
-    links: [
-        {
-            url: 'https://open.spotify.com/track/5wEy787VwmAnA7GGhEzjHR?si=c17cc826583549f5',
-            label: 'Spotify',
-        },
-    ],
-};
+const { data: track, error } = await API.PerformGet<DiscographyTrack>(`/discography/tracks/${useRoute().params.id}`);
 
-const has_romanized = track.title_romanized && track.title != track.title_romanized;
+const has_romanized = track && track.title_romanized && track.title != track.title_romanized;
 const current_cover = ref<{ name: string; url: string }>();
-if (track.covers) current_cover.value = track.covers[0];
 
-SetMetadata(
-    `${track.title}${has_romanized ? ` (${track.title_romanized})` : ''}`,
-    track.albums?.length ? `from ${track.albums[0].title}` : '',
-    track.covers?.at(0)?.url,
-);
+if (track) {
+    if (track.covers) current_cover.value = track.covers[0];
+
+    SetMetadata(
+        `${track.title}${has_romanized ? ` (${track.title_romanized})` : ''}`,
+        track.albums?.length ? `from ${track.albums[0].title}` : '',
+        track.covers?.at(0)?.url,
+    );
+}
 </script>
 
 <template>
     <PageBase>
-        <div class="flex max-w-full flex-col gap-4 text-lg">
+        <div class="flex max-w-full flex-col gap-4 text-lg" v-if="track">
             <div class="flex w-full max-w-[calc(min(100vw,calc(1536px))-64px)] flex-col gap-1 text-primary">
                 <p class="truncate text-4xl font-bold">{{ track.title }}</p>
                 <span class="truncate text-xl font-semibold opacity-80" v-if="has_romanized">{{ track.title_romanized }}</span>
@@ -86,10 +47,13 @@ SetMetadata(
                             {{ cover.name }}
                         </div>
                     </div>
-                    <div class="flex flex-row justify-between px-3 py-2 text-sm">
-                        <p class="opacity-80">Length</p>
-                        <p>{{ track.length }}</p>
-                    </div>
+                    <DiscographySideEntry
+                        title="Release"
+                        :value="`${formatting.Order(track.release.day)} ${formatting.GetMonth(track.release.month)} ${track.release.year}`"
+                        v-if="track.release"
+                    />
+                    <DiscographySideEntry title="Length" :value="track.length" />
+                    <DiscographySideEntry title="BPM" :value="track.bpm" v-if="track.bpm" />
                 </div>
                 <MarkdownView :content="Markdown.Render(track.content)" v-if="track.content" />
                 <div class="md-content mt-3">
@@ -121,5 +85,6 @@ SetMetadata(
                 </div>
             </div>
         </div>
+        <InfoNotFound :text="error?.message" v-else />
     </PageBase>
 </template>

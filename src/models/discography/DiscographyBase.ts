@@ -3,6 +3,11 @@ export type DiscographyBase = {
     title: string;
     title_romanized: string;
     content?: string;
+    release?: {
+        year: number;
+        month: number;
+        day: number;
+    };
     covers?: {
         name: string;
         url: string;
