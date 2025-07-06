@@ -9,6 +9,13 @@ export default defineNuxtConfig({
         head: {
             title: 'Camellia Wiki',
             viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+            link: [
+                {
+                    rel: 'icon',
+                    type: 'image/x-icon',
+                    href: '/favicon.ico',
+                },
+            ],
             meta: [{ name: 'darkreader', content: 'meow' }],
         },
         pageTransition: {
@@ -17,5 +24,5 @@ export default defineNuxtConfig({
     },
     experimental: {
         asyncContext: true,
-    }
+    },
 });
