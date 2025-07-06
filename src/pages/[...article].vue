@@ -39,7 +39,7 @@ if (article) {
                 <div class="flex min-w-0 max-w-full flex-1 flex-col gap-4">
                     <div>
                         <h1 class="text-4xl font-bold text-primary">{{ article.meta.title }}</h1>
-                        <p class="opacity-75">written by {{ article.meta.author }}</p>
+                        <div class="mt-1 h-1 w-24 rounded bg-primary"></div>
                     </div>
                     <MarkdownView :content="content" />
                 </div>
