@@ -26,7 +26,7 @@ async function Refresh() {
         return;
     }
 
-    const { data } = await API.PerformGet<WikiArticle[]>(`/search?query=${encodeURI(query)}&lang=${settings.language}`);
+    const { data } = await API.PerformGet<WikiArticle[]>(`/search?query=${encodeURIComponent(query)}&lang=${settings.language}`);
     if (!data) return;
 
     results.value?.push(...data);
