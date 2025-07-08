@@ -10,7 +10,18 @@ const current_cover = ref<{ name: string; url: string }>();
 
 if (album) {
     if (album.covers) current_cover.value = album.covers[0];
-    SetMetadata(`${album.title}${has_romanized ? ` (${album.title_romanized})` : ''}`, '', album.covers?.at(0)?.url);
+
+    let description = '';
+
+    if (album.discs) {
+        let count = 0;
+        album.discs.forEach((x) => (count += x.tracks.length));
+
+        if (album.discs.length > 1) description = `${album.discs.length} discs, ${count} tracks`;
+        else description = `${count} tracks`;
+    }
+
+    SetMetadata(`${album.title}${has_romanized ? ` (${album.title_romanized})` : ''}`, description, album.covers?.at(0)?.url);
 }
 </script>
 
