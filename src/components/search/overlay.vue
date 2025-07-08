@@ -69,7 +69,7 @@ async function Refresh() {
     </Transition>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .search-enter-active,
 .search-leave-active {
     transition: opacity 150ms;

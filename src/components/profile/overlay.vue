@@ -126,7 +126,7 @@ enum SubMenu {
     </Transition>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .profile-enter-active,
 .profile-leave-active {
     transition:
