@@ -7,6 +7,8 @@ watch(() => settings.theme, UpdateTheme)
 UpdateTheme();
 
 function UpdateTheme() {
-    document.documentElement.setAttribute('data-theme', settings.theme);
+	document.documentElement.setAttribute('data-theme', settings.theme);
 }
 </script>
+
+<template />
