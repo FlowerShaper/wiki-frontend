@@ -11,7 +11,7 @@ export default class API {
     static CurrentUser: CookieRef<WikiUser | undefined>;
 
     static Setup(dev: boolean) {
-        this.APIUrl = dev ? 'http://localhost:1984' : 'https://backend.camellia.wiki';
+        this.APIUrl = dev ? 'http://localhost:1984' : 'https://backend.cametek.jp';
 
         this.TokenCookie = useCookie('token', {
             sameSite: 'lax',
