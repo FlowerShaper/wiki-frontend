@@ -92,6 +92,14 @@ export default class API {
         return path.replace(/\//gi, '-').toLowerCase();
     }
 
+    static ResolveAsset(url: string): string {
+        if (url.startsWith('cdn://')) {
+            return `https://cdn.cametek.jp/wiki/${url.substring(6)}`;
+        }
+
+        return url;
+    }
+
     static Logout() {
         API.CurrentUser.value = undefined;
         API.TokenCookie.value = undefined;

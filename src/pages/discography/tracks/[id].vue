@@ -9,7 +9,13 @@ const has_romanized = track && track.title_romanized && track.title != track.tit
 const current_cover = ref<{ name: string; url: string }>();
 
 if (track) {
-    if (track.covers) current_cover.value = track.covers[0];
+    if (track.covers) {
+        track.covers.forEach((c) => {
+            c.url = API.ResolveAsset(c.url);
+        });
+
+        current_cover.value = track.covers[0];
+    }
 
     SetMetadata(
         `${track.title}${has_romanized ? ` (${track.title_romanized})` : ''}`,

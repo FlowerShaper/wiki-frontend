@@ -9,7 +9,13 @@ const has_romanized = album && album.title_romanized && album.title != album.tit
 const current_cover = ref<{ name: string; url: string }>();
 
 if (album) {
-    if (album.covers) current_cover.value = album.covers[0];
+    if (album.covers) {
+        album.covers.forEach((c) => {
+            c.url = API.ResolveAsset(c.url);
+        });
+
+        current_cover.value = album.covers[0];
+    }
 
     let description = '';
 

@@ -14,7 +14,7 @@ if (article) {
     parsed = Markdown.Parse(article.content);
     content = Markdown.Render(article.content);
 
-    SetMetadata(article.meta.title, article.meta.description, article.meta.image);
+    SetMetadata(article.meta.title, article.meta.description, API.ResolveAsset(article.meta.image));
 }
 </script>
 

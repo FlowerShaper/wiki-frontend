@@ -2,6 +2,7 @@ import ParsedMarkdown from "@/models/markdown/ParsedMarkdown";
 import ParsedSection from "@/models/markdown/ParsedSection";
 import ParsedSubSection from "@/models/markdown/ParsedSubSection";
 import { marked, type RendererObject } from "marked";
+import API from "./api";
 
 export default class Markdown {
     static FootnoteRegex = /\[\^(\d{1,2})\]/g;
@@ -64,7 +65,7 @@ export default class Markdown {
                 return `<markdown-blockquote type="${type}">${content}</markdown-blockquote>`
             },
             image: (image) =>
-                `<markdown-image path="${image.href}" alt="${image.text}"></markdown-image>`,
+                `<markdown-image path="${API.ResolveAsset(image.href)}" alt="${image.text}"></markdown-image>`,
         };
 
         marked.use({ renderer: config });
