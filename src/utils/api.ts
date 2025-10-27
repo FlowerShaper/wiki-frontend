@@ -6,12 +6,14 @@ import type { Result } from '~/models/ResultStates';
 import { APIError } from '~/models/APIError';
 
 export default class API {
-    static APIUrl = 'http://localhost:1984';
+    static APIUrl = '';
+    static CDNUrl = '';
     static TokenCookie: CookieRef<string | undefined>;
     static CurrentUser: CookieRef<WikiUser | undefined>;
 
     static Setup(dev: boolean) {
         this.APIUrl = dev ? 'http://localhost:1984' : 'https://backend.cametek.jp';
+        this.CDNUrl = dev ? 'http://localhost:1984/cdn?path=' : 'https://cdn.cametek.jp/wiki';
 
         this.TokenCookie = useCookie('token', {
             sameSite: 'lax',
@@ -94,7 +96,7 @@ export default class API {
 
     static ResolveAsset(url: string): string {
         if (url.startsWith('cdn://')) {
-            return `https://cdn.cametek.jp/wiki/${url.substring(6)}`;
+            return `${this.CDNUrl}${url.substring(6)}`;
         }
 
         return url;
