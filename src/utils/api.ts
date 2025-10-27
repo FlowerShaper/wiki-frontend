@@ -96,7 +96,7 @@ export default class API {
 
     static ResolveAsset(url: string): string {
         if (url.startsWith('cdn://')) {
-            return `${this.CDNUrl}${url.substring(6)}`;
+            return `${this.CDNUrl}/${url.substring(6)}`;
         }
 
         return url;
