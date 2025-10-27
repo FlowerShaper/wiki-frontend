@@ -57,7 +57,7 @@ async function Refresh() {
                     v-for="article in results"
                     @click="state.overlays.search = false"
                 >
-                    <img class="!w-1/3 object-cover" :src="article.meta.image" v-if="article.meta.image" />
+                    <img class="!w-1/3 object-cover" :src="API.ResolveAsset(article.meta.image)" v-if="article.meta.image" />
                     <div class="bg-gradient-to-r from-2/80 to-2 to-20% hover:opacity-80"></div>
                     <div class="flex size-full flex-col justify-center px-4">
                         <p class="line-clamp-1 font-semibold">{{ article.meta.title }}</p>
