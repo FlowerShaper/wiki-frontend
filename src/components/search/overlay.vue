@@ -7,7 +7,16 @@ const results = ref<WikiArticle[]>();
 const input = ref<HTMLInputElement>();
 
 let query: string | undefined = '';
-let schedule: NodeJS.Timeout | undefined = undefined;
+let schedule: number | undefined = undefined;
+
+watch(
+    () => state.overlays.search,
+    () => {
+        if (state.overlays.search) {
+            nextTick(() => input.value?.focus());
+        }
+    },
+);
 
 function InputUpdated() {
     query = input.value?.value;
