@@ -40,12 +40,12 @@ function GetTrackCount(album: DiscographyAlbum) {
                     <tr class="first:rounded-t-lg last:rounded-b-lg odd:bg-2 even:bg-3" v-for="album in data.albums">
                         <td><NuxtImg class="m-1 size-12 rounded" v-if="album.covers" :src="API.ResolveAsset(album.covers[0].url)" /></td>
                         <td class="pr-2">
-                            <p class="line-clamp-1 w-full font-semibold">
-                                {{ album.title
-                                }}<span v-if="album.title_romanized && album.title != album.title_romanized" class="text-base font-normal opacity-80">
+                            <NuxtLink :to="`/discography/albums/${album.id}`" class="line-clamp-1 w-full font-semibold">
+                                {{ album.title }}
+                                <span v-if="album.title_romanized && album.title != album.title_romanized" class="text-base font-normal opacity-80">
                                     {{ album.title_romanized }}
                                 </span>
-                            </p>
+                            </NuxtLink>
                         </td>
                         <td class="text-base">{{ GetTrackCount(album) }}</td>
                         <td>
@@ -72,12 +72,12 @@ function GetTrackCount(album: DiscographyAlbum) {
                     <tr class="first:rounded-t-lg last:rounded-b-lg odd:bg-2 even:bg-3" v-for="track in data.tracks">
                         <td><NuxtImg class="m-1 size-12 rounded" v-if="track.covers" :src="API.ResolveAsset(track.covers[0].url)" /></td>
                         <td class="pr-2">
-                            <p class="line-clamp-1 w-full font-semibold">
-                                {{ track.title
-                                }}<span v-if="track.title_romanized && track.title != track.title_romanized" class="text-base font-normal opacity-80">
+                            <NuxtLink :to="`/discography/tracks/${track.id}`" class="line-clamp-1 w-full font-semibold">
+                                {{ track.title }}
+                                <span v-if="track.title_romanized && track.title != track.title_romanized" class="text-base font-normal opacity-80">
                                     {{ track.title_romanized }}
                                 </span>
-                            </p>
+                            </NuxtLink>
                         </td>
                         <td>
                             <template v-if="track.release">
