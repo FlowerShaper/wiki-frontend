@@ -73,9 +73,9 @@ if (album) {
                             <MarkdownHeader :text="disc.name" :level="3" />
                             <ul class="mt-3 list-inside list-disc">
                                 <li v-for="track in disc.tracks" :key="track.id">
-                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">{{
-                                        track.title
-                                    }}</NuxtLink>
+                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
+                                        {{ track.title }}
+                                    </NuxtLink>
                                     <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span>
                                 </li>
                             </ul>
