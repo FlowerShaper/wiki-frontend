@@ -41,6 +41,14 @@ async function Refresh() {
     results.value?.push(...data);
     loading.value = false;
 }
+
+function SelectFirst() {
+    if (results.value?.length) {
+        const first = results.value[0];
+        navigateTo(first.url);
+        state.overlays.search = false;
+    }
+}
 </script>
 
 <template>
@@ -58,6 +66,7 @@ async function Refresh() {
                     type="text"
                     :value="query"
                     placeholder="Search away..."
+                    @keypress.enter="SelectFirst"
                 />
                 <p class="mt-6 text-center" v-if="loading">Loading...</p>
                 <NuxtLink
