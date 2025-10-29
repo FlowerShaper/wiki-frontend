@@ -75,6 +75,7 @@ if (album) {
                                 <li v-for="track in disc.tracks" :key="track.id">
                                     <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
                                         {{ track.title }}
+                                        <span class="text-base opacity-80">({{ track.length }})</span>
                                     </NuxtLink>
                                     <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span>
                                 </li>
