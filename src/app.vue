@@ -6,9 +6,8 @@ LoadSettings();
 API.Setup(import.meta.dev);
 // API.Setup(false); // use this if you dont have your own backend running
 
-if (API.TokenCookie.value)
-    await API.RefreshInfo(); // clean up regardless
-else API.Logout();
+if (API.TokenCookie.value) await API.RefreshInfo();
+else API.Logout(); // clean up regardless
 </script>
 
 <template>
