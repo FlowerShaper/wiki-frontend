@@ -10,7 +10,7 @@ const { data: comments, error } = await API.PerformGet<WikiComment[]>(`/posts/${
 </script>
 
 <template>
-    <div class="hidden flex-col md:flex">
+    <div class="hidden flex-col gap-3 md:flex">
         <!-- <ArticleCommentInput /> -->
         <InfoNotFound :text="error.message" v-if="error" />
         <Comment :comment="c" v-for="c in comments" />
