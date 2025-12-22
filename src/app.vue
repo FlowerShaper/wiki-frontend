@@ -3,8 +3,8 @@ import { settings } from '~/utils/state';
 import API from './utils/api';
 
 LoadSettings();
-API.Setup(import.meta.dev);
-// API.Setup(false); // use this if you dont have your own backend running
+// API.Setup(import.meta.dev);
+API.Setup(false); // use this if you dont have your own backend running
 
 if (API.TokenCookie.value) await API.RefreshInfo();
 else API.Logout(); // clean up regardless
@@ -28,7 +28,7 @@ else API.Logout(); // clean up regardless
             v-if="state.image_showing && state.image"
         >
             <div class="flex items-center justify-center p-32" @click="state.image = undefined">
-                <img class="size-full max-h-full max-w-full object-contain" :src="state.image.url" />
+                <img class="size-full max-h-full max-w-full object-contain" :src="API.ResolveAsset(state.image.url)" />
             </div>
             <div class="flex flex-col items-center justify-center bg-2 text-lg">{{ state.image.name }}</div>
         </div>
