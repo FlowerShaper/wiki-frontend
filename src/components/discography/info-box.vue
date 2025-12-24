@@ -3,14 +3,22 @@ import API from '~/utils/api';
 import type { DiscographyBase } from '~/models/discography/DiscographyBase';
 
 const props = defineProps<{
-    item: DiscographyBase
-}>()
+    item: DiscographyBase;
+}>();
 
 const current_cover = ref<{ name: string; url: string }>();
 
-if (props.item.covers) {
-    current_cover.value = props.item.covers[0];
-}
+watch(
+    () => props.item,
+    () => {
+        if (props.item.covers) {
+            if (current_cover.value && props.item.covers.indexOf(current_cover.value) >= 0) return;
+
+            current_cover.value = props.item.covers[0];
+        } else current_cover.value = undefined;
+    },
+    { deep: true, immediate: true },
+);
 </script>
 
 <template>
