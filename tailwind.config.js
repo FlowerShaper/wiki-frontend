@@ -22,8 +22,8 @@ export default {
             fontFamily: {
                 fa: 'fa',
                 'fa-reg': 'fa-regular',
-                'mono': ['jbmono', 'mono'],
-                'simple': ['campton', 'system-ui', 'sans-serif'],
+                'mono': ['jbmono', 'fa', 'mono'],
+                'simple': ['campton', 'fa', 'system-ui', 'sans-serif'],
                 system: ['system-ui', 'sans-serif'],
             },
             zIndex: {

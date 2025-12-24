@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@vueuse/core": "^14.1.0",
     "marked": "^16.0.0",
     "nuxt": "^3.17.5",
     "tw-colors": "^3.3.2",
