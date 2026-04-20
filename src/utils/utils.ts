@@ -10,9 +10,8 @@ export function SetMetadata(title: string, description: string, thumb?: string) 
     });
 }
 
-export function DownloadObjectJSON(obj: object, filename: string) {
-    const json = JSON.stringify(obj);
-    const blob = new Blob([json], { type: 'application/json' });
+export function DownloadTextFile(str: string, filename: string, mime: string) {
+    const blob = new Blob([str], { type: mime });
     const url = window.URL.createObjectURL(blob);
 
     const anchor = document.createElement('a');
@@ -21,4 +20,9 @@ export function DownloadObjectJSON(obj: object, filename: string) {
     anchor.click();
 
     window.URL.revokeObjectURL(url);
+}
+
+export function DownloadObjectJSON(obj: object, filename: string) {
+    const json = JSON.stringify(obj);
+    DownloadTextFile(json, filename, 'application/json');
 }
