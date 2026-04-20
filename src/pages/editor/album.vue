@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useFileDialog } from '@vueuse/core';
+import TextArea from '~/components/editor/text-area.vue';
 import TextBox from '~/components/editor/text-box.vue';
 import type { DiscographyAlbum } from '~/models/discography/DiscographyAlbum';
 import type { RawAlbumFile } from '~/models/editor/RawAlbumFile';
+import Markdown from '~/utils/markdown';
 
 const raw_data = ref<RawAlbumFile>({} as RawAlbumFile);
 const result = ref<DiscographyAlbum>({} as DiscographyAlbum);
@@ -41,6 +43,7 @@ watch(
             id: '',
             title: raw_data.value.title,
             title_romanized: raw_data.value.title_romanized,
+            content: raw_data.value.content,
             covers: raw_data.value.covers,
         };
 
@@ -72,7 +75,7 @@ function LoadFromText(text: string) {
 }
 
 function SaveToFile() {
-    DownloadObjectJSON(raw_data.value, "album.json");
+    DownloadObjectJSON(raw_data.value, 'album.json');
 }
 
 function Reset() {
@@ -87,7 +90,7 @@ function wip() {
 
 <template>
     <div class="grid h-screen max-h-screen w-screen grid-cols-2 gap-4 overflow-hidden p-4">
-        <div class="flex flex-col gap-5">
+        <div class="hide-scroll flex h-full flex-col gap-5 overflow-y-scroll">
             <div class="flex flex-row gap-5 *:flex-1">
                 <EditorButton @click="Reset">{{ '\uf0e2 Reset' }}</EditorButton>
                 <EditorButton @click="SaveToFile">{{ '\uf0c7 Save to file' }}</EditorButton>
@@ -96,6 +99,7 @@ function wip() {
             </div>
             <TextBox v-model="raw_data.title" label="Title" placeholder="..." />
             <TextBox v-model="raw_data.title_romanized" label="Title (Romanized)" placeholder="..." />
+            <TextArea v-model="raw_data.content" label="Content" rows="10" />
             <div class="flex flex-row gap-5 *:flex-1" v-if="raw_data.release">
                 <TextBox v-model.number="raw_data.release.year" label="Year" />
                 <TextBox v-model.number="raw_data.release.month" label="Month" />
@@ -117,6 +121,7 @@ function wip() {
             <DiscographyHeader :item="result" />
             <div>
                 <DiscographyInfoBox :item="result" />
+                <MarkdownView :content="Markdown.Render(result.content)" v-if="result.content" />
             </div>
         </div>
     </div>
