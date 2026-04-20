@@ -69,33 +69,24 @@ if (album) {
                 <div class="md-content mt-3">
                     <template v-if="album.discs?.length">
                         <MarkdownHeader text="Track List" :level="2" />
-                        <div v-for="(disc, index) in album.discs" :key="index">
-                            <MarkdownHeader :text="disc.name" :level="3" />
-                            <ul class="mt-3 list-inside list-disc">
-                                <li v-for="track in disc.tracks" :key="track.id">
-                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
-                                        {{ track.title }}
-                                        <span class="text-base opacity-80">({{ track.length }})</span>
-                                    </NuxtLink>
-                                    <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </template>
-                    <template v-if="album.credits?.length">
-                        <MarkdownHeader text="Credits" :level="2" />
-                        <ul class="list-inside list-disc">
-                            <li v-for="credit in album.credits">{{ credit.role }}: {{ credit.name }}</li>
-                        </ul>
-                    </template>
-                    <template v-if="album.links?.length">
-                        <MarkdownHeader text="Links" :level="2" />
-                        <ul class="list-inside list-disc">
-                            <li v-for="link in album.links">
-                                <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
+                        <DiscographyItemList :title="disc.name" :numbered="true" :depth="3" v-for="(disc, index) in album.discs">
+                            <li v-for="track in disc.tracks" :key="track.id">
+                                <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
+                                    {{ track.title }}
+                                    <span class="text-base opacity-80">({{ track.length }})</span>
+                                </NuxtLink>
+                                <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span>
                             </li>
-                        </ul>
+                        </DiscographyItemList>
                     </template>
+                    <DiscographyItemList title="Credits" v-if="album.credits?.length">
+                        <li v-for="credit in album.credits">{{ credit.role }}: {{ credit.name }}</li>
+                    </DiscographyItemList>
+                    <DiscographyItemList title="Links" v-if="album.links?.length">
+                        <li v-for="link in album.links">
+                            <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
+                        </li>
+                    </DiscographyItemList>
                 </div>
             </div>
         </div>

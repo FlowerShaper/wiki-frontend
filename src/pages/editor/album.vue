@@ -3,6 +3,7 @@ import { useFileDialog } from '@vueuse/core';
 import TextArea from '~/components/editor/text-area.vue';
 import TextBox from '~/components/editor/text-box.vue';
 import type { DiscographyAlbum } from '~/models/discography/DiscographyAlbum';
+import type { DiscographyTrack } from '~/models/discography/DiscographyTrack';
 import type { RawAlbumFile } from '~/models/editor/RawAlbumFile';
 import Markdown from '~/utils/markdown';
 
@@ -45,6 +46,22 @@ watch(
             title_romanized: raw_data.value.title_romanized,
             content: raw_data.value.content,
             covers: raw_data.value.covers,
+            credits: raw_data.value.credits,
+            links: raw_data.value.links,
+            discs: raw_data.value.discs?.map((d) => {
+                return {
+                    name: d.name,
+                    tracks: d.tracks.map((t) => {
+                        var track: DiscographyTrack = {
+                            id: t,
+                            title: t,
+                            length: '',
+                        };
+
+                        return track;
+                    }),
+                };
+            }),
         };
 
         if (raw_data.value.release && raw_data.value.release.year > 0) {
@@ -116,12 +133,78 @@ function wip() {
                     <p @click="raw_data.covers.splice(raw_data.covers.indexOf(cover), 1)">X</p>
                 </div>
             </template>
+            <template v-if="raw_data.discs">
+                <div class="flex flex-row justify-between">
+                    <p class="text-xs">Discs</p>
+                    <p class="text-xs hover:underline" @click="raw_data.discs.push({ name: '', tracks: [] })">add new</p>
+                </div>
+                <div class="flex w-full flex-col items-center gap-5 rounded-xl border-2 !border-3 p-4" v-for="disc in raw_data.discs">
+                    <div class="flex w-full flex-row items-center gap-5">
+                        <TextBox class="flex-1" v-model.number="disc.name" label="Name" />
+                        <p @click="raw_data.discs.splice(raw_data.discs.indexOf(disc), 1)">X</p>
+                    </div>
+                    <div class="flex w-full flex-row justify-between">
+                        <p class="text-xs">Tracks</p>
+                        <p class="text-xs hover:underline" @click="disc.tracks.push('')">add new</p>
+                    </div>
+                    <div class="flex w-full flex-row items-center gap-5" v-for="(track, idx) in disc.tracks">
+                        <TextBox class="flex-1" v-model.number="disc.tracks[idx]" label="ID" />
+                        <p @click="disc.tracks.splice(idx, 1)">X</p>
+                    </div>
+                </div>
+            </template>
+            <template v-if="raw_data.credits">
+                <div class="flex flex-row justify-between">
+                    <p class="text-xs">Credits</p>
+                    <p class="text-xs hover:underline" @click="raw_data.credits.push({ role: '', name: '' })">add new</p>
+                </div>
+                <div class="flex w-full flex-row items-center gap-5" v-for="credit in raw_data.credits">
+                    <TextBox class="flex-1" v-model.number="credit.role" label="Role" />
+                    <TextBox class="flex-1" v-model.number="credit.name" label="Name" />
+                    <p @click="raw_data.credits.splice(raw_data.credits.indexOf(credit), 1)">X</p>
+                </div>
+            </template>
+            <template v-if="raw_data.links">
+                <div class="flex flex-row justify-between">
+                    <p class="text-xs">Links</p>
+                    <p class="text-xs hover:underline" @click="raw_data.links.push({ url: '', label: '' })">add new</p>
+                </div>
+                <div class="flex w-full flex-row items-center gap-5" v-for="link in raw_data.links">
+                    <TextBox class="flex-1" v-model.number="link.label" label="Label" />
+                    <TextBox class="flex-1" v-model.number="link.url" label="URL" />
+                    <p @click="raw_data.links.splice(raw_data.links.indexOf(link), 1)">X</p>
+                </div>
+            </template>
         </div>
-        <div class="flex max-w-full flex-col gap-4 text-lg">
+        <div class="flex h-full max-w-full flex-col gap-4 overflow-y-scroll text-lg">
             <DiscographyHeader :item="result" />
             <div>
                 <DiscographyInfoBox :item="result" />
                 <MarkdownView :content="Markdown.Render(result.content)" v-if="result.content" />
+                <div class="md-content mt-3">
+                    <template v-if="result.discs?.length">
+                        <MarkdownHeader text="Track List" :level="2" />
+                        <DiscographyItemList :title="disc.name" :numbered="true" :depth="3" v-for="disc in result.discs">
+                            <li v-for="track in disc.tracks" :key="track.id">
+                                <!--  <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
+                                    {{ track.title }}
+                                    <span class="text-base opacity-80">({{ track.length }})</span>
+                                </NuxtLink>
+                                <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span> -->
+
+                                <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`">{{ track.id }}</NuxtLink>
+                            </li>
+                        </DiscographyItemList>
+                    </template>
+                    <DiscographyItemList title="Credits" v-if="result.credits?.length">
+                        <li v-for="credit in result.credits">{{ credit.role }}: {{ credit.name }}</li>
+                    </DiscographyItemList>
+                    <DiscographyItemList title="Links" v-if="result.links?.length">
+                        <li v-for="link in result.links">
+                            <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
+                        </li>
+                    </DiscographyItemList>
+                </div>
             </div>
         </div>
     </div>

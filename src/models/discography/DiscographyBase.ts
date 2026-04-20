@@ -1,7 +1,7 @@
 export type DiscographyBase = {
     id: string;
     title: string;
-    title_romanized: string;
+    title_romanized?: string;
     content?: string;
     release?: {
         year: number;
