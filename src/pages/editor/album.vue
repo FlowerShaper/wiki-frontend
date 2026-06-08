@@ -180,7 +180,7 @@ function wip() {
             <DiscographyHeader :item="result" />
             <div>
                 <DiscographyInfoBox :item="result" />
-                <MarkdownView :content="Markdown.Render(result.content)" v-if="result.content" />
+                <MarkdownView :content="result.content" v-if="result.content" />
                 <div class="md-content mt-3">
                     <template v-if="result.discs?.length">
                         <MarkdownHeader text="Track List" :level="2" />
@@ -190,7 +190,7 @@ function wip() {
                                     {{ track.title }}
                                     <span class="text-base opacity-80">({{ track.length }})</span>
                                 </NuxtLink>
-                                <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span> -->
+                                <span class="text-bq-caution" v-else>{{ track.id }} (MISSING DATA)</span> -->
 
                                 <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`">{{ track.id }}</NuxtLink>
                             </li>

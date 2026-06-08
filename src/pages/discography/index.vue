@@ -38,7 +38,7 @@ function GetTrackCount(album: DiscographyAlbum) {
                 </thead>
                 <tbody>
                     <tr class="first:rounded-t-lg last:rounded-b-lg odd:bg-2 even:bg-3" v-for="album in data.albums">
-                        <td><NuxtImg class="size-10 rounded md:m-1 md:size-12" v-if="album.covers" :src="API.ResolveAsset(album.covers[0].url)" /></td>
+                        <td><img class="size-10 rounded md:m-1 md:size-12" v-if="album.covers" :src="API.ResolveAsset(album.covers[0].url)" /></td>
                         <td class="pr-2">
                             <NuxtLink :to="`/discography/albums/${album.id}`" class="line-clamp-1 w-full text-sm font-semibold md:text-lg">
                                 {{ album.title }}
@@ -70,7 +70,7 @@ function GetTrackCount(album: DiscographyAlbum) {
                 </thead>
                 <tbody>
                     <tr class="first:rounded-t-lg last:rounded-b-lg odd:bg-2 even:bg-3" v-for="track in data.tracks">
-                        <td><NuxtImg class="size-10 rounded md:m-1 md:size-12" v-if="track.covers" :src="API.ResolveAsset(track.covers[0].url)" /></td>
+                        <td><img class="size-10 rounded md:m-1 md:size-12" v-if="track.covers" :src="API.ResolveAsset(track.covers[0].url)" /></td>
                         <td class="pr-2">
                             <NuxtLink :to="`/discography/tracks/${track.id}`" class="line-clamp-1 w-full text-sm font-semibold md:text-lg">
                                 {{ track.title }}

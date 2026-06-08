@@ -10,7 +10,7 @@ defineProps<{
 <template>
     <div class="flex flex-row gap-3">
         <div class="size-12">
-            <NuxtImg class="size-full object-cover rounded-md" :src="comment.author.avatar" />
+            <img class="size-full object-cover rounded-md" :src="comment.author.avatar" />
         </div>
         <div class="flex-1 pt-1">
             <p class="text-sm opacity-80">

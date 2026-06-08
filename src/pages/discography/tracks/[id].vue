@@ -25,7 +25,7 @@ if (track) {
                     <DiscographySideEntry title="Length" :value="track.length" />
                     <DiscographySideEntry title="BPM" :value="track.bpm" v-if="track.bpm" />
                 </DiscographyInfoBox>
-                <MarkdownView :content="Markdown.Render(track.content)" v-if="track.content" />
+                <MarkdownView :content="track.content" v-if="track.content" />
                 <div class="md-content mt-3">
                     <template v-if="track.albums?.length">
                         <MarkdownHeader text="Album Appearances" :level="2" />

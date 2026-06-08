@@ -7,10 +7,11 @@ export default {
         colors: {
             black: '#000',
             bq: {
-                danger: '#ff5555',
-                tip: '#5555ff',
-                caution: '#ffc517',
+                note: '#5555ff',
+                tip: '#55dd55',
+                important: '#aa55ff',
                 warning: '#ffc517',
+                caution: '#ff5555',
             },
         },
         extend: {

@@ -12,7 +12,7 @@ let parsed: ParsedMarkdown, content: string;
 
 if (article) {
     parsed = Markdown.Parse(article.content);
-    content = Markdown.Render(article.content);
+    content = article.content;
 
     SetMetadata(article.meta.title, article.meta.description, API.ResolveAsset(article.meta.image));
 }

@@ -65,6 +65,6 @@ function wip() {
             </div>
             <TextArea label="Content" rows="24" @input="md = <string>(<TextareaHTMLAttributes>$event.target).value"></TextArea>
         </div>
-        <MarkdownView class="h-full max-h-full overflow-y-scroll" :content="markdown.Render(md)" />
+        <MarkdownView class="h-full max-h-full overflow-y-scroll" :content="md" />
     </div>
 </template>

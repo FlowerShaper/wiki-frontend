@@ -65,7 +65,7 @@ if (album) {
                         v-if="album.release"
                     />
                 </div>
-                <MarkdownView :content="Markdown.Render(album.content)" v-if="album.content" />
+                <MarkdownView :content="album.content" v-if="album.content" />
                 <div class="md-content mt-3">
                     <template v-if="album.discs?.length">
                         <MarkdownHeader text="Track List" :level="2" />
@@ -75,7 +75,7 @@ if (album) {
                                     {{ track.title }}
                                     <span class="text-base opacity-80">({{ track.length }})</span>
                                 </NuxtLink>
-                                <span class="text-bq-danger" v-else>{{ track.id }} (MISSING DATA)</span>
+                                <span class="text-bq-caution" v-else>{{ track.id }} (MISSING DATA)</span>
                             </li>
                         </DiscographyItemList>
                     </template>

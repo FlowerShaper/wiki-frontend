@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import "~/assets/css/tailwind.css"
 import { settings } from '~/utils/state';
 import API from './utils/api';
 
 LoadSettings();
-// API.Setup(import.meta.dev);
-API.Setup(false); // use this if you dont have your own backend running
+API.Setup(import.meta.dev);
+// API.Setup(false); // use this if you dont have your own backend running
 
 if (API.TokenCookie.value) await API.RefreshInfo();
 else API.Logout(); // clean up regardless
