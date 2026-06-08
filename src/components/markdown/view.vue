@@ -5,7 +5,7 @@ import footnotes from '@comark/vue/plugins/footnotes';
 import security from '@comark/vue/plugins/security';
 import githubDark from '@shikijs/themes/github-dark';
 import highlight from 'comark/plugins/highlight';
-import wikiFootnotes from '~/plugins/md-footnotes';
+import wikiFootnotes from '~/utils/plugins/md-footnotes';
 
 const props = defineProps<{
     content: string;
