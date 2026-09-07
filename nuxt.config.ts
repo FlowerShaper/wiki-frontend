@@ -22,8 +22,13 @@ export default defineNuxtConfig({
             meta: [{ name: 'darkreader', content: 'meow' }],
         },
         pageTransition: {
-            name: 'page-fade',
+            name: 'fade',
+            mode: 'in-out',
+            type: 'transition'
         },
+        layoutTransition: {
+            name: 'fade'
+        }
     },
     experimental: {
         asyncContext: true,

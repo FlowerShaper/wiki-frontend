@@ -71,11 +71,13 @@ export default class API {
         });
 
         function listener(ev: MessageEvent<any>) {
+            if (ev.data.error) throw new Error(ev.data.error);
+            if (!ev.data.access_token) return;
+
             clear();
             popup?.close();
             console.log(ev);
 
-            if (ev.data.error) throw new Error(ev.data.error);
 
             const token = ev.data.access_token;
             API.TokenCookie.value = token;

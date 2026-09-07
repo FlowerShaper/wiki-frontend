@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DiscographyTrack } from '~/models/discography/DiscographyTrack';
 import API from '~/utils/api';
-import Markdown from '~/utils/markdown';
 
 const { data: track, error } = await API.PerformGet<DiscographyTrack>(`/discography/tracks/${useRoute().params.id}`);
 

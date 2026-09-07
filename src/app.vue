@@ -45,19 +45,18 @@ body {
     @apply overflow-x-hidden bg-1 font-mono text-text;
 }
 
-.page-fade-enter-active,
-.page-fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
     transition: all 300ms;
 }
 
-.page-fade-enter-to,
-.page-fade-leave-from {
+.fade-enter-to,
+.fade-leave-from {
     opacity: 1;
-    transition-delay: 100ms;
 }
 
-.page-fade-leave-to,
-.page-fade-enter-from {
+.fade-enter-from,
+.fade-leave-to {
     opacity: 0;
 }
 
