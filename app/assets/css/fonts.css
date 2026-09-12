@@ -1,0 +1,59 @@
+@font-face { 
+    font-family: 'fa';
+    font-weight: 900;
+    src: url('../fonts/fa-solid.ttf');
+}
+
+@font-face {
+    font-family: 'fa-regular';
+    font-weight: 400;
+    src: url('../fonts/fa-regular.ttf');
+}
+
+@font-face {
+    font-family: 'jbmono';
+    font-weight: 400;
+    src: url('../fonts/JetBrainsMono-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'jbmono';
+    font-weight: 500;
+    src: url('../fonts/JetBrainsMono-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'jbmono';
+    font-weight: 600;
+    src: url('../fonts/JetBrainsMono-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'jbmono';
+    font-weight: 700;
+    src: url('../fonts/JetBrainsMono-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'campton';
+    font-weight: 400;
+    src: url('../fonts/CamptonBook.otf');
+}
+
+@font-face {
+    font-family: 'campton';
+    font-weight: 500;
+    src: url('../fonts/CamptonMedium.otf');
+}
+
+@font-face {
+    font-family: 'campton';
+    font-weight: 600;
+    src: url('../fonts/CamptonSemiBold.otf');
+}
+
+@font-face {
+    font-family: 'campton';
+    font-weight: 700;
+    src: url('../fonts/CamptonBold.otf');
+}

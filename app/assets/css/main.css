@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@import "../../../wiki-lib/assets/css/main.css";
+
+:root {
+    --ui-text-muted: var(--color-text-2);
+    --ui-text-toned: var(--color-text-2);
+    --ui-text: var(--color-text);
+    --ui-text-highlighted: var(--color-text);
+    --ui-text-inverted: var(--color-background-2);
+
+    --ui-bg: var(--color-background-1);
+    --ui-bg-muted: var(--color-background-2);
+    --ui-bg-elevated: var(--color-background-2);
+    --ui-bg-accented: var(--color-background-3);
+    --ui-bg-inverted: var(--color-text);
+
+    --ui-border: var(--color-background-2);
+    --ui-border-muted: var(--color-background-3);
+    --ui-border-elevated: var(--color-background-3);
+    --ui-border-inverted: var(--color-text);
+}
+
+@theme {
+    --font-*: initial;
+    --font-fa: 'fa';
+    --font-reg: 'fa-regular';
+    --font-sans: 'jbmono', 'fa', monospace;
+    --font-simple: 'campton', 'fa', system-ui, sans-serif;
+    --font-system: system-ui, sans-serif;
+
+    --color-*: initial;
+    --color-black: black;
+    --color-bq-note: #5555ff;
+    --color-bq-tip: #55dd55;
+    --color-bq-important: #aa55ff;
+    --color-bq-warning: #ffc517;
+    --color-bq-caution: #ff5555;
+
+    --color-primary: hsl(242, 41%, 74%);
+    --color-secondary: hsl(272, 41%, 74%);
+    --color-background-1: hsl(243, 26%, 16%);
+    --color-background-2: hsl(243, 26%, 21%);
+    --color-background-3: hsl(243, 26%, 26%);
+    --color-background-4: hsl(243, 26%, 31%);
+    --color-text: hsl(240, 27%, 90%);
+    --color-text-2: hsl(240, 27%, 75%);
+
+    --spacing-page: 1536px;
+    --spacing-settings: 1280px;
+    --spacing-search: 1024px;
+}
+
+[data-theme="light"] {
+    --color-primary: #d1566a;
+    --color-secondary: #b273f0;
+    --color-background-1: hsl(349, 65%, 95%);
+    --color-background-2: hsl(349, 65%, 93%);
+    --color-background-3: hsl(349, 65%, 91%);
+    --color-background-4: hsl(349, 65%, 89%);
+    --color-text: hsl(351, 48%, 5%);
+    --color-text-2: hsl(351, 48%, 15%);
+}
+
+[data-theme="alpha"] {
+    --color-primary: #F876D3;
+    --color-secondary: #EF656E;
+    --color-background-1: #331D2D;
+    --color-background-2: #45283D;
+    --color-background-3: #58304D;
+    --color-background-4: #56304C;
+    --color-text: #ffffff;
+    --color-text-2: #dddddd;
+}
+
+html {
+    @apply scroll-m-16 scroll-smooth;
+}
+
+.overlap-grid {
+    display: grid;
+}
+
+.overlap-grid > * {
+    width: 100%;
+    height: inherit;
+    grid-area: 1 / 1;
+    z-index: 1;
+}
+
+.hide-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}

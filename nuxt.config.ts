@@ -2,8 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2026-06-08',
     devtools: { enabled: true },
-    modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@comark/nuxt'],
-    srcDir: 'src',
+    modules: ['@nuxt/icon', '@comark/nuxt', '@nuxt/ui'],
     components: true,
     app: {
         head: {
@@ -24,13 +23,24 @@ export default defineNuxtConfig({
         pageTransition: {
             name: 'fade',
             mode: 'in-out',
-            type: 'transition'
+            type: 'transition',
         },
         layoutTransition: {
-            name: 'fade'
-        }
+            name: 'fade',
+        },
+    },
+    css: ['~/assets/css/main.css', '~/assets/css/fonts.css'],
+    extends: ['./wiki-lib'],
+    icon: {
+        clientBundle: {
+            scan: true,
+        },
+        provider: 'server',
     },
     experimental: {
         asyncContext: true,
+    },
+    ui: {
+        prose: false,
     },
 });
