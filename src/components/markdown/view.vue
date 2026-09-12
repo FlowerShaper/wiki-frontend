@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MarkdownBlockquote, MarkdownCodeBlock, MarkdownH2, MarkdownH3, MarkdownImage, NuxtLink } from '#components';
+import { MarkdownAlbumLink, MarkdownBlockquote, MarkdownCodeBlock, MarkdownH2, MarkdownH3, MarkdownImage, MarkdownTrackLink, NuxtLink } from '#components';
 import alert from '@comark/vue/plugins/alert';
 import footnotes from '@comark/vue/plugins/footnotes';
 import security from '@comark/vue/plugins/security';
@@ -17,7 +17,9 @@ const components: Record<string, any> = {
     h3: MarkdownH3,
     img: MarkdownImage,
     pre: MarkdownCodeBlock,
-    blockquote: MarkdownBlockquote
+    blockquote: MarkdownBlockquote,
+    'track-link': MarkdownTrackLink,
+    'album-link': MarkdownAlbumLink
 };
 
 const plugins: any = [

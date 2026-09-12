@@ -2,7 +2,6 @@ export type WikiArticle = {
     url: string
     lang: string
     meta: WikiArticleMetadata
-    breadcrumbs: WikiArticleBreadcrumb[]
     content: string
 }
 
@@ -14,9 +13,4 @@ export type WikiArticleMetadata = {
     layout: string
     type: number
     date: number
-}
-
-export type WikiArticleBreadcrumb = {
-    name: string
-    path: string
 }
