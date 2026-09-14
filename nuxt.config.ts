@@ -41,6 +41,7 @@ export default defineNuxtConfig({
         asyncContext: true,
     },
     ui: {
+        theme: {  },
         prose: false,
     },
 });

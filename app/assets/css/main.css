@@ -4,6 +4,9 @@
 @import "../../../wiki-lib/assets/css/main.css";
 
 :root {
+    --ui-primary: var(--color-primary);
+    --ui-secondary: var(--color-secondary);
+
     --ui-text-muted: var(--color-text-2);
     --ui-text-toned: var(--color-text-2);
     --ui-text: var(--color-text);
