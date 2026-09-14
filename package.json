@@ -18,6 +18,7 @@
     "wiki-lib": "file:./wiki-lib"
   },
   "devDependencies": {
+    "@iconify-json/flag": "^1.2.12",
     "@iconify-json/lucide": "^1.2.131",
     "@iconify-json/ph": "^1.2.2",
     "sass-embedded": "^1.104.0",
