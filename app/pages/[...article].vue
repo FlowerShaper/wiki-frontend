@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import type { MarkdownView } from '#components';
+
 const route = useRoute();
 const path = `/${(<string[]>route.params.article).join('/')}`;
 
 const { data: article, error } = await api.PerformGet<WikiArticle>(`/articles?path=${path}&lang=${settings.language}`);
 let parsed: ParsedMarkdown, content: string;
+
+const view = ref<InstanceType<typeof MarkdownView>>();
 
 if (article) {
     // parsed = markdown.Parse(article.content);
@@ -20,11 +24,11 @@ if (article) {
                 <div class="sticky top-24 hidden max-h-[36vh] w-48 flex-col gap-2 md:flex">
                     <h3 class="text-primary">Contents</h3>
                     <ol class="list-inside list-decimal">
-                        <li class="text-lg" v-for="sec in parsed.sections" v-if="parsed">
-                            <a class="hover:font-semibold" :href="`#${sec.id}`">{{ sec.title }}</a>
-                            <ul class="list-inside list-disc pl-4 text-base" v-if="sec.subs">
-                                <li v-for="sub in sec.subs">
-                                    <a class="hover:font-semibold" :href="`#${sub.id}`">{{ sub.title }}</a>
+                        <li class="text-lg" v-for="sec in view?.parsed.meta.toc.links" v-if="view?.parsed">
+                            <a class="hover:font-semibold" :href="`#${sec.id}`">{{ sec.text }}</a>
+                            <ul class="list-inside list-disc pl-4 text-base" v-if="sec.children">
+                                <li v-for="sub in sec.children">
+                                    <a class="hover:font-semibold" :href="`#${sub.id}`">{{ sub.text }}</a>
                                 </li>
                             </ul>
                         </li>
@@ -36,7 +40,7 @@ if (article) {
                         <h1 class="text-4xl font-bold text-primary">{{ article.meta.title }}</h1>
                         <div class="mt-1 h-1 w-24 rounded bg-primary"></div>
                     </div>
-                    <MarkdownView :content="content" />
+                    <MarkdownView :content="content" ref="view" />
                 </div>
             </div>
             <ArticleComments :path="path" />
