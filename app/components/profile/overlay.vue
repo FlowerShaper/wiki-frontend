@@ -62,7 +62,7 @@ enum SubMenu {
 
 <template>
     <Transition name="profile">
-        <div v-if="state.overlays.profile" @click="Close" class="pointer-events-auto fixed left-0 top-0 size-full bg-black bg-opacity-25">
+        <div v-if="state.overlays.profile" @click="Close" class="pointer-events-auto fixed left-0 top-0 size-full bg-black/25">
             <div class="mx-auto w-full 2xl:w-page">
                 <div
                     @click="$event.stopPropagation()"
