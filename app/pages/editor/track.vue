@@ -4,8 +4,8 @@ import TextArea from '~/components/editor/text-area.vue';
 import TextBox from '~/components/editor/text-box.vue';
 import { parse, stringify } from 'yaml';
 
-const raw_data = ref<RawAlbumFile>({} as RawAlbumFile);
-const result = ref<DiscographyAlbum>({} as DiscographyAlbum);
+const raw_data = ref<RawTrackFile>({} as RawTrackFile);
+const result = ref<DiscographyTrack>({} as DiscographyTrack);
 
 const { open: openLoadFile, onChange: onLoadFile } = useFileDialog({
     accept: 'text/yaml;application/x-yaml',
@@ -18,10 +18,12 @@ onLoadFile(async (f) => {
     LoadFromText(text);
 });
 
+// don't know why the yaml parser works like this
+// but not having {} makes the page not load
 LoadFromText('{}');
 
 if (import.meta.client) {
-    const stored = localStorage.getItem('editor_album');
+    const stored = localStorage.getItem('editor_track');
     if (stored) LoadFromText(stored);
 }
 
@@ -34,10 +36,10 @@ watch(
     () => {
         if (import.meta.client) {
             const yaml = stringify(raw_data.value);
-            localStorage.setItem('editor_album', yaml);
+            localStorage.setItem('editor_track', yaml);
         }
 
-        const album: DiscographyAlbum = {
+        const track: DiscographyTrack = {
             id: '',
             title: raw_data.value.title,
             title_romanized: raw_data.value.title_romanized,
@@ -45,55 +47,49 @@ watch(
             covers: raw_data.value.covers,
             credits: raw_data.value.credits,
             links: raw_data.value.links,
-            discs: raw_data.value.discs?.map((d) => {
+            length: raw_data.value.length || '',
+            bpm: raw_data.value.bpm,
+            albums: raw_data.value.albums?.map((a) => {
                 return {
-                    name: d.name,
-                    tracks: d.tracks.map((t) => {
-                        var track: DiscographyTrack = {
-                            id: t,
-                            title: t,
-                            length: '',
-                        };
-
-                        return track;
-                    }),
+                    id: a,
+                    title: a,
                 };
             }),
         };
 
         if (raw_data.value.release && raw_data.value.release.year > 0) {
-            album.release = {
+            track.release = {
                 year: raw_data.value.release.year,
                 month: raw_data.value.release.month,
                 day: raw_data.value.release.day,
             };
         }
 
-        console.log('refreshed', album);
-        result.value = album;
+        console.log('refreshed', track);
+        result.value = track;
     },
     { deep: true, immediate: true },
 );
 
 function LoadFromText(text: string) {
-    var parsed = parse(text) as RawAlbumFile;
-    if (!parsed.title) parsed.title = 'Album Name';
+    var parsed: RawTrackFile = parse(text) as RawTrackFile;
+    if (!parsed.title) parsed.title = 'Track Name';
     if (!parsed.title_romanized) parsed.title_romanized = '';
     if (!parsed.content) parsed.content = '';
     if (!parsed.covers) parsed.covers = [];
     if (!parsed.credits) parsed.credits = [];
     if (!parsed.links) parsed.links = [];
     if (!parsed.release) parsed.release = { year: 0, month: 0, day: 0 };
-    if (!parsed.discs) parsed.discs = [];
+    if (!parsed.albums) parsed.albums = [];
     raw_data.value = parsed;
 }
 
 function SaveToFile() {
-    DownloadTextFile(stringify(raw_data.value), 'album.yaml', 'text/yaml;application/x-yaml');
+    DownloadTextFile(stringify(raw_data.value), 'track.yaml', 'text/yaml;application/x-yaml');
 }
 
 function Reset() {
-    localStorage.removeItem('editor_album');
+    localStorage.removeItem('editor_track');
     LoadFromText('');
 }
 
@@ -119,6 +115,13 @@ function wip() {
                 <TextBox v-model.number="raw_data.release.month" label="Month" />
                 <TextBox v-model.number="raw_data.release.day" label="Day" />
             </div>
+            <div class="flex flex-row gap-5 *:flex-1 items-center">
+                <TextBox v-model="raw_data.bpm" label="BPM" />
+                <TextBox v-model="raw_data.length" label="Month" />
+                <div>
+                    <UCheckbox class="ml-4" v-model="raw_data.single" label="Single" />
+                </div>
+            </div>
             <template v-if="raw_data.covers">
                 <div class="flex flex-row justify-between">
                     <p class="text-xs">Covers</p>
@@ -130,25 +133,16 @@ function wip() {
                     <p @click="raw_data.covers.splice(raw_data.covers.indexOf(cover), 1)">X</p>
                 </div>
             </template>
-            <template v-if="raw_data.discs">
+            <template v-if="raw_data.albums">
                 <div class="flex flex-row justify-between">
-                    <p class="text-xs">Discs</p>
-                    <p class="text-xs hover:underline" @click="raw_data.discs.push({ name: '', tracks: [] })">add new</p>
+                    <p class="text-xs">Albums</p>
+                    <p class="text-xs hover:underline" @click="raw_data.albums.push('')">add new</p>
                 </div>
-                <div class="flex w-full flex-col items-center gap-5 rounded-xl border-2 border-background-3 p-4" v-for="disc in raw_data.discs">
-                    <div class="flex w-full flex-row items-center gap-5">
-                        <TextBox class="flex-1" v-model.number="disc.name" label="Name" />
-                        <p @click="raw_data.discs.splice(raw_data.discs.indexOf(disc), 1)">X</p>
-                    </div>
-                    <div class="flex w-full flex-row justify-between">
-                        <p class="text-xs">Tracks</p>
-                        <p class="text-xs hover:underline" @click="disc.tracks.push('')">add new</p>
-                    </div>
-                    <div class="flex w-full flex-row items-center gap-5" v-for="(track, idx) in disc.tracks">
-                        <TextBox class="flex-1" v-model.number="disc.tracks[idx]" label="ID" />
-                        <p @click="disc.tracks.splice(idx, 1)">X</p>
-                    </div>
+                <div class="flex w-full flex-row items-center gap-5" v-for="(album, idx) in raw_data.albums">
+                    <TextBox class="flex-1" label="Name" :value="album" @update:model-value="(v) => (raw_data.albums![idx] = v)" />
+                    <p @click="raw_data.albums.splice(idx, 1)">X</p>
                 </div>
+                <div class="flex w-full flex-col items-center gap-5 rounded-xl border-2 border-background-3 p-4" v-for="disc in raw_data.discs"></div>
             </template>
             <template v-if="raw_data.credits">
                 <div class="flex flex-row justify-between">
@@ -179,28 +173,31 @@ function wip() {
                 <DiscographyInfoBox :item="result" />
                 <MarkdownView :content="result.content" v-if="result.content" />
                 <div class="md-content mt-3">
-                    <template v-if="result.discs?.length">
-                        <MarkdownHeader text="Track List" :level="2" />
-                        <DiscographyItemList :title="disc.name" :numbered="true" :depth="3" v-for="disc in result.discs">
-                            <li v-for="track in disc.tracks" :key="track.id">
-                                <!--  <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
-                                    {{ track.title }}
-                                    <span class="text-base opacity-80">({{ track.length }})</span>
-                                </NuxtLink>
-                                <span class="text-bq-caution" v-else>{{ track.id }} (MISSING DATA)</span> -->
-
-                                <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`">{{ track.id }}</NuxtLink>
-                            </li>
-                        </DiscographyItemList>
+                    <template v-if="result.albums?.length">
+                        <MarkdownH2>Album Appearances</MarkdownH2>
+                        <div>
+                            <p>This track appears in:</p>
+                            <ul class="list-inside list-disc">
+                                <li v-for="album in result.albums">
+                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/albums/${album.id}`">{{ album.title }}</NuxtLink>
+                                </li>
+                            </ul>
+                        </div>
                     </template>
-                    <DiscographyItemList title="Credits" v-if="result.credits?.length">
-                        <li v-for="credit in result.credits">{{ credit.role }}: {{ credit.name }}</li>
-                    </DiscographyItemList>
-                    <DiscographyItemList title="Links" v-if="result.links?.length">
-                        <li v-for="link in result.links">
-                            <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
-                        </li>
-                    </DiscographyItemList>
+                    <template v-if="result.credits?.length">
+                        <MarkdownH2>Credits</MarkdownH2>
+                        <ul class="list-inside list-disc">
+                            <li v-for="credit in result.credits">{{ credit.role }}: {{ credit.name }}</li>
+                        </ul>
+                    </template>
+                    <template v-if="result.links?.length">
+                        <MarkdownH2>Links</MarkdownH2>
+                        <ul class="list-inside list-disc">
+                            <li v-for="link in result.links">
+                                <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
+                            </li>
+                        </ul>
+                    </template>
                 </div>
             </div>
         </div>
