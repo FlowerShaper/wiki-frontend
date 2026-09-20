@@ -170,7 +170,10 @@ function wip() {
         <div class="flex h-full max-w-full flex-col gap-4 overflow-y-scroll text-lg">
             <DiscographyHeader :item="result" />
             <div>
-                <DiscographyInfoBox :item="result" />
+                <DiscographyInfoBox :item="result">
+                    <DiscographySideEntry title="Length" :value="result.length" />
+                    <DiscographySideEntry title="BPM" :value="result.bpm" v-if="result.bpm" />
+                </DiscographyInfoBox>
                 <MarkdownView :content="result.content" v-if="result.content" />
                 <div class="md-content mt-3">
                     <template v-if="result.albums?.length">
