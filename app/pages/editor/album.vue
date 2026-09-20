@@ -2,12 +2,13 @@
 import { useFileDialog } from '@vueuse/core';
 import TextArea from '~/components/editor/text-area.vue';
 import TextBox from '~/components/editor/text-box.vue';
+import { parse, stringify } from 'yaml';
 
 const raw_data = ref<RawAlbumFile>({} as RawAlbumFile);
 const result = ref<DiscographyAlbum>({} as DiscographyAlbum);
 
 const { open: openLoadFile, onChange: onLoadFile } = useFileDialog({
-    accept: 'application/json',
+    accept: 'text/yaml;application/x-yaml',
 });
 
 onLoadFile(async (f) => {
@@ -32,8 +33,8 @@ watch(
     raw_data,
     () => {
         if (import.meta.client) {
-            const json = JSON.stringify(raw_data.value);
-            localStorage.setItem('editor_album', json);
+            const yaml = stringify(raw_data.value);
+            localStorage.setItem('editor_album', yaml);
         }
 
         const album: DiscographyAlbum = {
@@ -75,7 +76,7 @@ watch(
 );
 
 function LoadFromText(text: string) {
-    var parsed = JSON.parse(text) as RawAlbumFile;
+    var parsed = parse(text) as RawAlbumFile;
     if (!parsed.title) parsed.title = 'Album Name';
     if (!parsed.title_romanized) parsed.title_romanized = '';
     if (!parsed.content) parsed.content = '';
@@ -88,12 +89,12 @@ function LoadFromText(text: string) {
 }
 
 function SaveToFile() {
-    DownloadObjectJSON(raw_data.value, 'album.json');
+    DownloadTextFile(stringify(raw_data.value), 'album.json', 'text/yaml;application/x-yaml');
 }
 
 function Reset() {
     localStorage.removeItem('editor_album');
-    LoadFromText('{}');
+    LoadFromText('');
 }
 
 function wip() {

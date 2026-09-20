@@ -15,7 +15,8 @@
     "@nuxt/ui": "^4.11.1",
     "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3",
-    "wiki-lib": "file:./wiki-lib"
+    "wiki-lib": "file:./wiki-lib",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@iconify-json/flag": "^1.2.12",
