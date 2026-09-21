@@ -89,7 +89,10 @@ function LoadFromText(text: string) {
 }
 
 function SaveToFile() {
-    DownloadTextFile(stringify(raw_data.value), 'album.yaml', 'text/yaml;application/x-yaml');
+    // this is stupid but the backend will literally cry when it sees the content field
+    const temp = parse(stringify(raw_data.value));
+    temp.content = undefined;
+    DownloadTextFile(stringify(temp), 'track.yaml', 'text/yaml;application/x-yaml');
 }
 
 function Reset() {
@@ -113,7 +116,10 @@ function wip() {
             </div>
             <TextBox v-model="raw_data.title" label="Title" placeholder="..." />
             <TextBox v-model="raw_data.title_romanized" label="Title (Romanized)" placeholder="..." />
-            <TextArea v-model="raw_data.content" label="Content" rows="10" />
+            <div>
+                <TextArea v-model="raw_data.content" label="Content" rows="10" />
+                <p class="text-bq-caution text-xs ml-1 mt-1">This will not save into the yaml file! Please create the .md file manually.</p>
+            </div>
             <div class="flex flex-row gap-5 *:flex-1" v-if="raw_data.release">
                 <TextBox v-model.number="raw_data.release.year" label="Year" />
                 <TextBox v-model.number="raw_data.release.month" label="Month" />
