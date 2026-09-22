@@ -4,6 +4,8 @@ import { RouterLink } from 'vue-router';
 import { state, UpdateSetting } from '~/utils/state';
 import Placeholder from '@/assets/images/placeholder.png';
 
+const editor = import.meta.dev;
+
 const themes = [
     {
         id: 'dark',
@@ -90,6 +92,9 @@ enum SubMenu {
                             <ProfileOverlayButton @click="api.OpenLogin" :icon="'\uf2f6'" text="log in" v-else />
                             <ProfileOverlayButton @click="react.menu = SubMenu.Language" :icon="'\uf57d'" text="language" />
                             <ProfileOverlayButton @click="react.menu = SubMenu.Theme" :icon="'\ue206'" text="theme" />
+                            <NuxtLink to="/editor" v-if="editor">
+                                <ProfileOverlayButton :icon="'\uf5ae'" text="editor" />
+                            </NuxtLink>
                             <RouterLink to="/settings" @click="Close">
                                 <ProfileOverlayButton :icon="'\uf013'" text="settings" />
                             </RouterLink>

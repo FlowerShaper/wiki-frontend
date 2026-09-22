@@ -11,7 +11,6 @@ export default defineNuxtConfig({
             title: 'Camellia Wiki',
             viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
         },
-        pageTransition: { name: 'fade', mode: 'in-out', type: 'transition' },
         layoutTransition: { name: 'fade' },
     },
     css: ['~/assets/css/main.css', '~/assets/css/fonts.css'],

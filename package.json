@@ -13,10 +13,13 @@
     "@comark/nuxt": "^0.6.2",
     "@nuxt/icon": "^2.2.3",
     "@nuxt/ui": "^4.11.1",
+    "@types/node": "^26.6.2",
+    "es-git": "^0.7.0",
     "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3",
     "wiki-lib": "file:./wiki-lib",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@iconify-json/flag": "^1.2.12",

@@ -173,42 +173,6 @@ function wip() {
                 </div>
             </template>
         </div>
-        <div class="flex h-full max-w-full flex-col gap-4 overflow-y-scroll text-lg">
-            <DiscographyHeader :item="result" />
-            <div>
-                <DiscographyInfoBox :item="result">
-                    <DiscographySideEntry title="Length" :value="result.length" />
-                    <DiscographySideEntry title="BPM" :value="result.bpm" v-if="result.bpm" />
-                </DiscographyInfoBox>
-                <MarkdownView :content="result.content" v-if="result.content" />
-                <div class="md-content mt-3">
-                    <template v-if="result.albums?.length">
-                        <MarkdownH2>Album Appearances</MarkdownH2>
-                        <div>
-                            <p>This track appears in:</p>
-                            <ul class="list-inside list-disc">
-                                <li v-for="album in result.albums">
-                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/albums/${album.id}`">{{ album.title }}</NuxtLink>
-                                </li>
-                            </ul>
-                        </div>
-                    </template>
-                    <template v-if="result.credits?.length">
-                        <MarkdownH2>Credits</MarkdownH2>
-                        <ul class="list-inside list-disc">
-                            <li v-for="credit in result.credits">{{ credit.role }}: {{ credit.name }}</li>
-                        </ul>
-                    </template>
-                    <template v-if="result.links?.length">
-                        <MarkdownH2>Links</MarkdownH2>
-                        <ul class="list-inside list-disc">
-                            <li v-for="link in result.links">
-                                <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
-                            </li>
-                        </ul>
-                    </template>
-                </div>
-            </div>
-        </div>
+        <DiscographyContentTrack class="h-full overflow-y-scroll" :track="result" />
     </div>
 </template>

@@ -14,43 +14,7 @@ if (track) {
 
 <template>
     <PageBase>
-        <div class="flex max-w-full flex-col gap-4 text-lg" v-if="track">
-            <DiscographyHeader :item="track" />
-            <div>
-                <DiscographyInfoBox :item="track">
-                    <DiscographySideEntry title="Length" :value="track.length" />
-                    <DiscographySideEntry title="BPM" :value="track.bpm" v-if="track.bpm" />
-                </DiscographyInfoBox>
-                <MarkdownView :content="track.content" v-if="track.content" />
-                <div class="md-content mt-3">
-                    <template v-if="track.albums?.length">
-                        <MarkdownH2>Album Appearances</MarkdownH2>
-                        <div>
-                            <p>This track appears in:</p>
-                            <ul class="list-inside list-disc">
-                                <li v-for="album in track.albums">
-                                    <NuxtLink class="text-primary hover:underline" :to="`/discography/albums/${album.id}`">{{ album.title }}</NuxtLink>
-                                </li>
-                            </ul>
-                        </div>
-                    </template>
-                    <template v-if="track.credits?.length">
-                        <MarkdownH2>Credits</MarkdownH2>
-                        <ul class="list-inside list-disc">
-                            <li v-for="credit in track.credits">{{ credit.role }}: {{ credit.name }}</li>
-                        </ul>
-                    </template>
-                    <template v-if="track.links?.length">
-                        <MarkdownH2>Links</MarkdownH2>
-                        <ul class="list-inside list-disc">
-                            <li v-for="link in track.links">
-                                <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
-                            </li>
-                        </ul>
-                    </template>
-                </div>
-            </div>
-        </div>
+        <DiscographyContentTrack class="max-w-full" :track v-if="track" />
         <InfoNotFound :text="error?.message" v-else />
     </PageBase>
 </template>

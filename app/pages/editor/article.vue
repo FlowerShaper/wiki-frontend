@@ -13,7 +13,7 @@ const meta = ref<WikiArticleMetadata>({
     author: '',
     image: '',
     layout: '',
-    type: 0,
+    type: WikiArticleType.ARTICLE,
     date: 0,
 });
 

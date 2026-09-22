@@ -179,36 +179,6 @@ function wip() {
                 </div>
             </template>
         </div>
-        <div class="flex h-full max-w-full flex-col gap-4 overflow-y-scroll text-lg">
-            <DiscographyHeader :item="result" />
-            <div>
-                <DiscographyInfoBox :item="result" />
-                <MarkdownView :content="result.content" v-if="result.content" />
-                <div class="md-content mt-3">
-                    <template v-if="result.discs?.length">
-                        <MarkdownHeader text="Track List" :level="2" />
-                        <DiscographyItemList :title="disc.name" :numbered="true" :depth="3" v-for="disc in result.discs">
-                            <li v-for="track in disc.tracks" :key="track.id">
-                                <!--  <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`" v-if="track.title">
-                                    {{ track.title }}
-                                    <span class="text-base opacity-80">({{ track.length }})</span>
-                                </NuxtLink>
-                                <span class="text-bq-caution" v-else>{{ track.id }} (MISSING DATA)</span> -->
-
-                                <NuxtLink class="text-primary hover:underline" :to="`/discography/tracks/${track.id}`">{{ track.id }}</NuxtLink>
-                            </li>
-                        </DiscographyItemList>
-                    </template>
-                    <DiscographyItemList title="Credits" v-if="result.credits?.length">
-                        <li v-for="credit in result.credits">{{ credit.role }}: {{ credit.name }}</li>
-                    </DiscographyItemList>
-                    <DiscographyItemList title="Links" v-if="result.links?.length">
-                        <li v-for="link in result.links">
-                            <NuxtLink class="text-primary hover:underline" :to="link.url">{{ link.label }}</NuxtLink>
-                        </li>
-                    </DiscographyItemList>
-                </div>
-            </div>
-        </div>
+        <DiscographyContentAlbum class="h-full overflow-y-scroll" :album="result" />
     </div>
 </template>

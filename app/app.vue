@@ -19,7 +19,7 @@ else api.Logout(); // clean up regardless
     <UApp>
         <div :class="{ 'font-simple': settings.simpleFont }">
             <NuxtLayout>
-                <NuxtPage />
+                <NuxtPage :transition="{ name: 'fade', mode: 'in-out', type: 'transition' }" />
             </NuxtLayout>
         </div>
 
